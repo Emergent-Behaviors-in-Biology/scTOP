@@ -1,2 +1,3 @@
-# scTOP
-Single-cell Type Order Parameters
+# scTOP: Single-cell Type Order Parameters
+
+A module for finding projections onto known cell phenotyes, given matrices of raw RNA count data. 
