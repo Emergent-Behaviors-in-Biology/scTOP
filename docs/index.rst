@@ -3,7 +3,7 @@ Single-cell Type Order Parameters: identifying cell phenotype from gene expressi
 =========================================================================================
 
 A module for finding projections onto known cell phenotyes, given matrices of raw RNA count data. 
-The theoretical background for this project can be found in [Epigenetic Landscapes Explain Partially Reprogrammed Cells and Identify Key Reprogramming Genes](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003734) by Alex H. Lang, Hu Li, James J. Collins, and Pankaj Mehta. 
+The theoretical background for this project can be found in `Epigenetic Landscapes Explain Partially Reprogrammed Cells and Identify Key Reprogramming Genes <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003734>`_ by Alex H. Lang, Hu Li, James J. Collins, and Pankaj Mehta. 
 
 A manuscript detailing the technical details of applying our method to single-cell RNA-seq is in progress, hopefully to be completed Summer 2022.
 
