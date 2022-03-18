@@ -2,7 +2,7 @@
 scTOP: Single-cell Type Order Parameters
 =========================================================================================
 
-*Documentation available via [Read the Docs](https://sctop.readthedocs.io/).*
+*Documentation available via `Read the Docs <https://sctop.readthedocs.io/>`_*
 
 A package for finding projections onto known cell phenotyes, given matrices of raw RNA count data. 
 The theoretical background for this project can be found in `Epigenetic Landscapes Explain Partially Reprogrammed Cells and Identify Key Reprogramming Genes <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003734>`_ by Alex H. Lang, Hu Li, James J. Collins, and Pankaj Mehta. 
