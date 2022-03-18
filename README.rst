@@ -13,7 +13,8 @@ Installation
 =============
 
 To install with PyPi:
-```pip install scTOP```
+
+``pip install scTOP``
 
 Dependencies
 -------------
