@@ -10,7 +10,7 @@ A manuscript containing the technical details of applying our method to single-c
 Sources for reference databases
 =================================
 * `Mouse Cell Atlas <http://bis.zju.edu.cn/MCA/>`_
-* `Atlas of Mouse Lung Developmen <https://journals.biologists.com/dev/article-abstract/148/24/dev199512/273783/A-single-cell-atlas-of-mouse-lung-development?redirectedFrom=fulltext>`_
+* `Atlas of Mouse Lung Development <https://journals.biologists.com/dev/article-abstract/148/24/dev199512/273783/A-single-cell-atlas-of-mouse-lung-development?redirectedFrom=fulltext>`_
 
 Dependencies
 =============
