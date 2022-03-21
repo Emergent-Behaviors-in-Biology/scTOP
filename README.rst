@@ -12,7 +12,7 @@ Installation
 
 I am working on getting this package to work in PyPi. In the meantime, you can use scTOP by cloning or downloading this repo and importing the module from ``sctop/sctop.py``. See ``tutorial/tutorial.ipynb`` for an example.
 
-`Documentation available via Read the Docs <https://sctop.readthedocs.io/>`_
+`(In progress!) Documentation available via Read the Docs <https://sctop.readthedocs.io/>`_ 
 
 This project is a work in progress. Please check back in Summer 2022 for a more complete version. Also, please report bugs or request new features in the Github "Issues" tab. You can also contact me directly at ``mariay@bu.edu``.
 
