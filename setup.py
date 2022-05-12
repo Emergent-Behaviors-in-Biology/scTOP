@@ -11,9 +11,9 @@ setuptools.setup(
     description="A package for identifying cell phenotype from single-cell RNA-sequencing data.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/Emergent-Behaviors-in-Biology/scTOP",
     project_urls={
-        "Bug Tracker": "https://github.com/pypa/sampleproject/issues",
+        "Bug Tracker": "https://github.com/Emergent-Behaviors-in-Biology/scTOP/issues",
         "Docs": "https://readthedocs.org/projects/sctop/"
     },
     classifiers=[
