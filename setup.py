@@ -14,7 +14,7 @@ setuptools.setup(
     url="https://github.com/Emergent-Behaviors-in-Biology/scTOP",
     project_urls={
         "Bug Tracker": "https://github.com/Emergent-Behaviors-in-Biology/scTOP/issues",
-        "Docs": "https://readthedocs.org/projects/sctop/"
+        "Docs": "https://sctop.readthedocs.io/"
     },
     classifiers=[
         "Programming Language :: Python :: 3",
