@@ -21,8 +21,13 @@ setuptools.setup(
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "sctop"},
-    packages=setuptools.find_packages(where="sctop"),
+    packages=["sctop"],
     python_requires=">=3.6",
     include_package_data=True,
+    install_requires=[
+        "numpy",
+        "pandas",
+        "scipy",
+        "tables"
+    ]
 )
