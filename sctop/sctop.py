@@ -54,21 +54,32 @@ def load_basis(basis_name, minimum_cells=100, source_dir=__file__[:-9] + '/datab
             
     """
     
-    acceptable_bases = ['MC20-KO22', 'LD21']
+    acceptable_bases = ['MC-KO', 'MC', 'LD']
     if basis_name not in acceptable_bases:
         raise ValueError('Provided basis_name must refer to one of the existing bases: {}'
                          .format(acceptable_bases))
     
+    if basis_name == 'MC':
+        basis_name = 'MC20_apr22'
+    elif basis_name == 'MC-KO':
+        basis_name = 'MCKO_apr22'
+    elif basis_name == 'LD':
+        basis_name = 'LD_apr22'
+    
     data = pd.read_hdf(source_dir + 'data_' + basis_name + '.h5')
     metadata = pd.read_csv(source_dir + 'metadata_' + basis_name + '.csv', index_col=0)
     
-    # if MC20, drop cultured mesenchymal and trophoblast stem cells
-    if basis_name == acceptable_bases[0]:
+    # if Mouse Cell Atlas, drop cultured mesenchymal and trophoblast stem cells
+    # ALso drop embroynic cells, because we only want an adult basis
+    if 'MC' in basis_name:
         exceptions = [exception for exception in data.columns 
-                      if ('Trophoblast' in exception) or ('Cultured' in exception)]
+                      if ('Trophoblast' in exception) or ('Cultured' in exception) or ('E14.5' in exception) or ('Embryonic' in exception)]
         data = data.drop(columns = exceptions)
+        metadata = metadata.drop(index = exceptions)
+        
+    types_above_minimum = metadata['Cell Count'] > minimum_cells
     
-    return (data.loc[:, metadata['Cell Count'] > minimum_cells], metadata)
+    return (data.loc[:, types_above_minimum].dropna(axis=0), metadata.loc[types_above_minimum])
 
 def score(basis, sample, full_output=False):
     """
@@ -109,7 +120,7 @@ def score(basis, sample, full_output=False):
 
     A = np.dot(basis_values.T, basis_values) / basis_values.shape[0]
     eta = np.linalg.solve(A, basis_values.T) / basis_values.shape[0]
-    a = pd.DataFrame(np.dot(eta, sample_values), index=basis.columns)
+    a = pd.DataFrame(np.dot(eta, sample_values), index=basis.columns, columns=sample.columns)
 
     if full_output:
         return [a, A, eta]
@@ -180,4 +191,7 @@ def process(data, average=False):
     # Find the normal-distribution z-scores of log(expression + 1)
     data_zscored = rank_zscore(np.log2(data_normalized.values + 1))
     
-    return pd.DataFrame(data_zscored, index=data.index)
+    if average:
+        return pd.DataFrame(data_zscored, index=data.index)
+    else:
+        return pd.DataFrame(data_zscored, index=data.index, columns=data.columns)
