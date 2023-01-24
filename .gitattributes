@@ -1,0 +1,10 @@
+sctop/databases/ filter=lfs diff=lfs merge=lfs -text
+sctop/databases/data_LD_apr22.h5 filter=lfs diff=lfs merge=lfs -text
+sctop/databases/data_MC20_apr22.h5 filter=lfs diff=lfs merge=lfs -text
+sctop/databases/data_MCKO_apr22.h5 filter=lfs diff=lfs merge=lfs -text
+sctop/databases/metadata_MCKO_apr22.h5 filter=lfs diff=lfs merge=lfs -text
+sctop/databases/metadata_MC20_apr22.csv filter=lfs diff=lfs merge=lfs -text
+sctop/databases/metadata_LD_apr22.csv filter=lfs diff=lfs merge=lfs -text
+*csv filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
+*.h5 filter=lfs diff=lfs merge=lfs -text
