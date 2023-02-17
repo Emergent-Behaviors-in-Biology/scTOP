@@ -3,7 +3,7 @@ scTOP: Single-cell Type Order Parameters
 =========================================================================================
 
 A Python package for finding projections onto known cell phenotyes, given matrices of raw RNA count data. 
-A manuscript containing the technical details of applying this method is available [here](https://github.com/Emergent-Behaviors-in-Biology/scTOP-manuscript/tree/main).
+A manuscript containing the technical details of applying this method is available `here <https://github.com/Emergent-Behaviors-in-Biology/scTOP-manuscript/tree/main>`.
 
 Installation
 =============
