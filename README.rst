@@ -28,8 +28,9 @@ Sources for reference databases
 * `Atlas of Lung Development <https://doi.org/10.1101/2021.01.21.427641>`
 
 Tutorial on creating your own reference basis using an existing atlas
+=================================
 
-I suggest making your own reference basis to analyze data that's relevant to your biological context. You can find a few examples of reference basis creation in the [scTOP manuscript repository "notebooks" folder](https://github.com/Emergent-Behaviors-in-Biology/scTOP-manuscript/tree/main/notebooks) -- particularly, you can looks at [create MCA reference basis.ipynb](https://github.com/Emergent-Behaviors-in-Biology/scTOP-manuscript/blob/main/notebooks/create%20MCA%20reference%20basis.ipynb) or [cellbench, human lung atlas.ipynb](https://github.com/Emergent-Behaviors-in-Biology/scTOP-manuscript/blob/main/notebooks/cellbench%2C%20human%20lung%20atlas.ipynb). 
+I suggest making your own reference basis to analyze data that's relevant to your biological context. You can find a few examples of reference basis creation in the `scTOP manuscript repository "notebooks" folder <https://github.com/Emergent-Behaviors-in-Biology/scTOP-manuscript/tree/main/notebooks>`_ -- particularly, you can looks at `create MCA reference basis.ipynb <https://github.com/Emergent-Behaviors-in-Biology/scTOP-manuscript/blob/main/notebooks/create%20MCA%20reference%20basis.ipynb>`_ or `cellbench, human lung atlas.ipynb <https://github.com/Emergent-Behaviors-in-Biology/scTOP-manuscript/blob/main/notebooks/cellbench%2C%20human%20lung%20atlas.ipynb>`_. 
 
 Here is a general version of code I've used to make reference bases. This code assumes the original data source is an h5ad file (for this example, I'm using the LungMAP human lung atlas). ::
 
