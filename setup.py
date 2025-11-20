@@ -5,7 +5,7 @@ with open("README.rst", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="scTOP",
-    version="2.0.0",
+    version="2.0.2",
     author="Maria Yampolskaya, Huan Souza",
     author_email="mariay@bu.edu, hsouza@bu.edu",
     description="A package for analyzing cell type using single-cell RNA-sequencing data.",

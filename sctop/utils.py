@@ -614,8 +614,8 @@ def score_chunk_optimized(
 def plot_performance_summary(
     true_labels: List, 
     predicted_labels: List, 
+    f1_df: Optional[pd.DataFrame] = None,
     figsize_base: int = 10,
-    f1_df: Optional[pd.DataFrame] = None
 ):
     """
     Generates and displays a Confusion Matrix and a Per-Cell-Type F1 Score plot.
