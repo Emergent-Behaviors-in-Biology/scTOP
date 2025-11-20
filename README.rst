@@ -5,7 +5,7 @@ scTOP: Single-cell Type Order Parameters
 A Python package for analyzing cell type using single-cell RNA-sequencing data. See our paper for more details: `Development <https://doi.org/10.1242/dev.201873>`_.
 
 
-`Easy-to-use Colab notebook available here <https://colab.research.google.com/drive/1tyG_Q83BZKBdGNRYExAb07vR4m0NMK25?usp=sharing>`
+`Want to get started right away? Easy-to-use Colab interface available here <https://colab.research.google.com/drive/1tyG_Q83BZKBdGNRYExAb07vR4m0NMK25?usp=sharing>`_
 
 `Documentation available via Read the Docs <https://sctop.readthedocs.io/>`_ 
 
