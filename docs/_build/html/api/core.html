@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core Functions &mdash; scTOP 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=51b770b3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Refrence Basis Management" href="basis.html" />
+    <link rel="prev" title="API Reference" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            scTOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Core Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#process">process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#score">score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rank-zscore-fast">rank_zscore_fast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#technical-details">Technical Details</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data-processing-pipeline">Data Processing Pipeline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#projection-mathematics">Projection Mathematics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memory-optimization">Memory Optimization</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="basis.html">Refrence Basis Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-functions">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#basis-management">Basis Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#analysis-functions">Analysis Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">scTOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Core Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/core.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="core-functions">
+<h1>Core Functions<a class="headerlink" href="#core-functions" title="Link to this heading"></a></h1>
+<p>These are the fundamental data processing and scoring functions.</p>
+<section id="process">
+<h2>process<a class="headerlink" href="#process" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Transform raw count data into normalized, rank-based z-scores suitable for projection.</p>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p>Column-wise normalization (library size)</p></li>
+<li><p>Log transformation</p></li>
+<li><p>Rank-based conversion to normal scores</p></li>
+<li><p>Handles both individual samples and averaged profiles</p></li>
+<li><p>Optional chunking for memory efficiency</p></li>
+</ul>
+<p><strong>Pipeline</strong>:</p>
+<ol class="arabic simple">
+<li><p>Normalize each sample: <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">/</span> <span class="pre">sum(data)</span></code></p></li>
+<li><p>Log transform: <code class="docutils literal notranslate"><span class="pre">log2(normalized</span> <span class="pre">+</span> <span class="pre">1)</span></code></p></li>
+<li><p>Rank genes within each sample</p></li>
+<li><p>Convert ranks to z-scores via inverse normal CDF</p></li>
+</ol>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>df_in</strong> (<em>pd.DataFrame, np.ndarray, or sparse matrix</em>): Input data with genes as rows, samples as columns</p></li>
+<li><p><strong>average</strong> (<em>bool</em>, default=False): If True, averages across samples (for creating cell type profiles)</p></li>
+<li><p><strong>chunk_size</strong> (<em>int</em>, optional): Process data in chunks to reduce memory usage</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>pd.DataFrame</strong>: Processed data with same shape as input (or single column if average=True)</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sctop</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">top</span>
+
+<span class="c1"># Raw count matrix: genes × cells</span>
+<span class="n">raw_counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="c1"># Process individual cells</span>
+<span class="n">processed</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">raw_counts</span><span class="p">)</span>
+
+<span class="c1"># Or average across samples (for basis creation)</span>
+<span class="n">averaged</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">raw_counts</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># For large datasets, use chunking</span>
+<span class="n">processed_chunked</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">raw_counts</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Input should be raw counts (not normalized or log-transformed)</p></li>
+<li><p>The rank-based transformation is robust to technical variation and outliers</p></li>
+<li><p>Sparse matrices are converted to dense arrays internally</p></li>
+</ul>
+</section>
+<section id="score">
+<h2>score<a class="headerlink" href="#score" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Project processed samples onto a cell type basis to compute similarity scores.</p>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p>Finds the projections onto cell types</p></li>
+<li><p>Optional chunking for large sample sets</p></li>
+<li><p>Returns scores for all cell types simultaneously</p></li>
+<li><p>Can return full decomposition (projection matrix, correlation matrix, etc.)</p></li>
+</ul>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>basis</strong> (<em>pd.DataFrame</em>): Cell type basis (genes × cell types)</p></li>
+<li><p><strong>sample</strong> (<em>pd.DataFrame</em>): Processed sample data (genes × samples)</p></li>
+<li><p><strong>full_output</strong> (<em>bool</em>, default=False): If True, returns [projections, correlation_matrix, eta]</p></li>
+<li><p><strong>chunk_size</strong> (<em>int</em>, optional): Process samples in chunks</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>pd.DataFrame</strong>: Cell type scores (cell types × samples), or</p></li>
+<li><p><strong>list</strong>: [projections, A, eta] if full_output=True, where:</p>
+<ul>
+<li><p><strong>projections</strong>: Cell type scores</p></li>
+<li><p><strong>A</strong>: Correlation matrix (<span class="math notranslate nohighlight">\(B^T B / G\)</span>)</p></li>
+<li><p><strong>eta</strong>: Projection matrix</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Score samples against basis</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">processed_sample</span><span class="p">)</span>
+
+<span class="c1"># scores.loc[&#39;Basophil&#39;, &#39;sample_1&#39;] gives Basophil score for sample_1</span>
+
+<span class="c1"># For large sample sets, use chunking</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">processed_sample</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Get full output for analysis</span>
+<span class="n">projections</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">eta</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">processed_sample</span><span class="p">,</span> <span class="n">full_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Only genes present in both basis and sample are used</p></li>
+<li><p>Basis and sample must be <strong>processed</strong> (not raw counts)</p></li>
+<li><p>Typical workflow: <code class="docutils literal notranslate"><span class="pre">process()</span></code> → <code class="docutils literal notranslate"><span class="pre">score()</span></code></p></li>
+</ul>
+</section>
+<section id="rank-zscore-fast">
+<h2>rank_zscore_fast<a class="headerlink" href="#rank-zscore-fast" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Convert values to rank-based z-scores (internal function).</p>
+<p><strong>Description</strong>:</p>
+<p>This function implements the rank-based normal scores transformation:</p>
+<ol class="arabic simple">
+<li><p>Rank values within each column</p></li>
+<li><p>Handle ties by assigning average rank</p></li>
+<li><p>Convert ranks to percentiles</p></li>
+<li><p>Apply inverse normal CDF (probit transform)</p></li>
+</ol>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>arr</strong> (<em>np.ndarray</em>): Input array (genes × samples)</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>np.ndarray</strong>: Z-scored array with same shape</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sctop.processing</span><span class="w"> </span><span class="kn">import</span> <span class="n">rank_zscore_fast</span>
+
+<span class="c1"># Raw expression values</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+<span class="c1"># Convert to z-scores</span>
+<span class="n">z_scores</span> <span class="o">=</span> <span class="n">rank_zscore_fast</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Z-scores are approximately N(0,1) distributed</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean: </span><span class="si">{</span><span class="n">z_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, Std: </span><span class="si">{</span><span class="n">z_scores</span><span class="o">.</span><span class="n">std</span><span class="p">()</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Uses Numba JIT compilation for speed</p></li>
+<li><p>Handles ties correctly (average rank method)</p></li>
+<li><p>Parallel processing across samples</p></li>
+<li><p>Used internally by <code class="docutils literal notranslate"><span class="pre">process()</span></code></p></li>
+</ul>
+</section>
+<section id="technical-details">
+<h2>Technical Details<a class="headerlink" href="#technical-details" title="Link to this heading"></a></h2>
+<section id="data-processing-pipeline">
+<h3>Data Processing Pipeline<a class="headerlink" href="#data-processing-pipeline" title="Link to this heading"></a></h3>
+<p>The complete processing pipeline in <code class="docutils literal notranslate"><span class="pre">process()</span></code> is:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Normalize by library size</span>
+<span class="n">normalized</span> <span class="o">=</span> <span class="n">data</span> <span class="o">/</span> <span class="n">data</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 2. Log transform</span>
+<span class="n">log_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">normalized</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 3. Rank-based z-score</span>
+<span class="n">z_scored</span> <span class="o">=</span> <span class="n">rank_zscore_fast</span><span class="p">(</span><span class="n">log_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This transformation:</p>
+<ul class="simple">
+<li><p>Removes library size effects</p></li>
+<li><p>Stabilizes variance</p></li>
+<li><p>Produces normal-like distributions</p></li>
+</ul>
+</section>
+<section id="projection-mathematics">
+<h3>Projection Mathematics<a class="headerlink" href="#projection-mathematics" title="Link to this heading"></a></h3>
+<p>The scoring step solves:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\min_{\\mathbf{a}} \\|B \\mathbf{a} - \\mathbf{s}\\|^2\end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(B\)</span>: basis matrix (genes × cell types)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\\mathbf{s}\)</span>: processed sample vector</p></li>
+<li><p><span class="math notranslate nohighlight">\(\\mathbf{a}\)</span>: cell type scores (output)</p></li>
+</ul>
+<p>The solution is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\mathbf{a} = (B^T B)^{-1} B^T \\mathbf{s} / G\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(G\)</span> is the number of genes.</p>
+</section>
+<section id="memory-optimization">
+<h3>Memory Optimization<a class="headerlink" href="#memory-optimization" title="Link to this heading"></a></h3>
+<p>Both <code class="docutils literal notranslate"><span class="pre">process()</span></code> and <code class="docutils literal notranslate"><span class="pre">score()</span></code> support chunking:</p>
+<p><strong>process()</strong> chunks:</p>
+<ul class="simple">
+<li><p>Splits samples into chunks</p></li>
+<li><p>Processes each chunk independently</p></li>
+<li><p>Concatenates results</p></li>
+<li><p>Reduces peak memory by factor of <code class="docutils literal notranslate"><span class="pre">n_samples</span> <span class="pre">/</span> <span class="pre">chunk_size</span></code></p></li>
+</ul>
+<p><strong>score()</strong> chunks:</p>
+<ul class="simple">
+<li><p>Computes projection matrix once: <span class="math notranslate nohighlight">\(\\eta = (B^T B)^{-1} B^T / G\)</span></p></li>
+<li><p>Applies to sample chunks: <span class="math notranslate nohighlight">\(\\mathbf{a}_i = \\eta \\cdot \\mathbf{s}_i\)</span></p></li>
+<li><p>Minimal memory overhead</p></li>
+</ul>
+<p>Example: memory-efficient workflow:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># For 100k cells × 20k genes</span>
+<span class="n">processed</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">process</span><span class="p">(</span>
+    <span class="n">large_dataset</span><span class="p">,</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span>  <span class="c1"># Process 500 cells at a time</span>
+<span class="p">)</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">score</span><span class="p">(</span>
+    <span class="n">basis</span><span class="p">,</span>
+    <span class="n">processed</span><span class="p">,</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span>  <span class="c1"># Score 1000 cells at a time</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="basis.html" class="btn btn-neutral float-right" title="Refrence Basis Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emergent Behaviors in Biology Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

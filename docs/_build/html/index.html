@@ -1,0 +1,306 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Single-cell Type Order Parameters: identifying cell phenotype from gene expression data &mdash; scTOP 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=51b770b3"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            scTOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">scTOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Single-cell Type Order Parameters: identifying cell phenotype from gene expression data</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="single-cell-type-order-parameters-identifying-cell-phenotype-from-gene-expression-data">
+<h1>Single-cell Type Order Parameters: identifying cell phenotype from gene expression data<a class="headerlink" href="#single-cell-type-order-parameters-identifying-cell-phenotype-from-gene-expression-data" title="Link to this heading"></a></h1>
+<p>scTOP is a Python package for identifying cell phenotypes from single-cell RNA-sequencing data by projecting samples onto reference cell type bases. The package uses Order Parameters theory to find projections onto known cell phenotypes.</p>
+<p>The theoretical background for this project can be found in <a class="reference external" href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003734">Epigenetic Landscapes Explain Partially Reprogrammed Cells and Identify Key Reprogramming Genes</a> by Alex H. Lang, Hu Li, James J. Collins, and Pankaj Mehta.</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-from-pypi">Install from PyPI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-from-source">Install from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verify-installation">Verify Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#optional-components">Optional Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#getting-help">Getting Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#loading-pre-made-reference-bases">Loading Pre-made Reference Bases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#scoring-samples-against-a-basis">Scoring Samples Against a Basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#creating-a-custom-basis">Creating a Custom Basis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#advanced-cross-validation">Advanced: Cross-Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#advanced-feature-selection-with-anova">Advanced: Feature Selection with ANOVA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#gene-contribution-analysis">Gene Contribution Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#visualization">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/basis.html">Refrence Basis Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/analysis.html">Analysis Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#core-functions">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#basis-management">Basis Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#analysis-functions">Analysis Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-1-basic-cell-type-identification">Tutorial 1: Basic Cell Type Identification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-2-creating-a-custom-reference">Tutorial 2: Creating a Custom Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-3-gene-contribution-analysis">Tutorial 3: Gene Contribution Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#tutorial-4-cross-validation-workflow">Tutorial 4: Cross-Validation Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="theory.html">Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#theoretical-background">Theoretical Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#mathematical-framework">Mathematical Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#data-processing">Data Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#basis-construction">Basis Construction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#scoring-projection">Scoring (Projection)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#predictivity-matrix">Predictivity Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#performance-metrics">Performance Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#feature-selection">Feature Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#cross-validation">Cross-Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="theory.html#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/sctop/index.html">sctop</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>Install via pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sctop</span>
+</pre></div>
+</div>
+<p>Or from source:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Emergent</span><span class="o">-</span><span class="n">Behaviors</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">Biology</span><span class="o">/</span><span class="n">scTOP</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">scTOP</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span>
+</pre></div>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h2>
+<section id="basic-usage">
+<h3>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h3>
+<p>Load a pre-made reference basis:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sctop</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">top</span>
+
+<span class="c1"># List available bases</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">top</span><span class="o">.</span><span class="n">list_available_bases</span><span class="p">())</span>
+
+<span class="c1"># Load a basis</span>
+<span class="n">basis</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">load_basis</span><span class="p">(</span><span class="n">basis_key</span><span class="o">=</span><span class="s2">&quot;MCKO legacy&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Process and score your data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Process raw count data</span>
+<span class="n">processed_sample</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">raw_counts</span><span class="p">)</span>
+
+<span class="c1"># Score against basis</span>
+<span class="n">projections</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">processed_sample</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create a custom basis from your own data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">anndata</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ad</span>
+
+<span class="c1"># Load your annotated data</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s2">&quot;your_data.h5ad&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create basis with validation</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">create_basis</span><span class="p">(</span>
+    <span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+    <span class="n">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">do_anova</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
+
+<span class="c1"># Access the basis and metrics</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;basis&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;metrics&#39;</span><span class="p">][</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Pre-computed Reference Bases</strong>: Access curated reference atlases (Mouse Cell Atlas, etc.)</p></li>
+<li><p><strong>Custom Basis Creation</strong>: Build your own reference from annotated scRNA-seq data</p></li>
+<li><p><strong>Robust Processing</strong>: Rank-based normalization handles technical variation</p></li>
+<li><p><strong>Fast Projection</strong>: Efficient matrix operations for large datasets</p></li>
+<li><p><strong>Performance Evaluation</strong>: Built-in cross-validation and metrics</p></li>
+<li><p><strong>Gene Contribution Analysis</strong>: Understand which genes drive cell type assignments</p></li>
+<li><p><strong>Visualization Tools</strong>: Plot projections, confusion matrices, and gene contributions</p></li>
+</ul>
+</section>
+<section id="sources-for-reference-databases">
+<h2>Sources for Reference Databases<a class="headerlink" href="#sources-for-reference-databases" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://bis.zju.edu.cn/MCA/">Mouse Cell Atlas</a></p></li>
+<li><p><a class="reference external" href="https://journals.biologists.com/dev/article-abstract/148/24/dev199512/273783/A-single-cell-atlas-of-mouse-lung-development?redirectedFrom=fulltext">Atlas of Mouse Lung Development</a></p></li>
+</ul>
+</section>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Link to this heading"></a></h2>
+<section id="core-dependencies">
+<h3>Core Dependencies<a class="headerlink" href="#core-dependencies" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>NumPy</p></li>
+<li><p>Pandas</p></li>
+<li><p>SciPy</p></li>
+<li><p>AnnData</p></li>
+<li><p>scikit-learn</p></li>
+<li><p>tables (PyTables)</p></li>
+</ul>
+</section>
+<section id="visualization">
+<h3>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Matplotlib</p></li>
+<li><p>Seaborn</p></li>
+</ul>
+</section>
+<section id="performance">
+<h3>Performance<a class="headerlink" href="#performance" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Numba (for fast rank computation)</p></li>
+<li><p>tqdm (progress bars)</p></li>
+</ul>
+</section>
+<section id="optional">
+<h3>Optional<a class="headerlink" href="#optional" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>requests (for downloading remote bases)</p></li>
+</ul>
+</section>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
+<p>If you use scTOP in your research, please cite:</p>
+<p>[Citation information to be added]</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>scTOP is released under the MIT License.</p>
+</section>
+<section id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emergent Behaviors in Biology Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

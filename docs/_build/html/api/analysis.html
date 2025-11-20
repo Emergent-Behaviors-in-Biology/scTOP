@@ -1,0 +1,509 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analysis Functions &mdash; scTOP 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=51b770b3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Visualization" href="visualization.html" />
+    <link rel="prev" title="Refrence Basis Management" href="basis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            scTOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basis.html">Refrence Basis Management</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Analysis Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#compute-predictivity">compute_predictivity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compute-gene-contributions">compute_gene_contributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#find-top-contributing-genes">find_top_contributing_genes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#perform-anova-selection">perform_anova_selection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculate-metrics">calculate_metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculate-per-cell-type-accuracy">calculate_per_cell_type_accuracy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-scoring-parallel">run_scoring_parallel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-performance-summary">plot_performance_summary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#print-metrics">print_metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-functions">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#basis-management">Basis Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#analysis-functions">Analysis Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">scTOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Analysis Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/analysis.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="analysis-functions">
+<h1>Analysis Functions<a class="headerlink" href="#analysis-functions" title="Link to this heading"></a></h1>
+<p>Utilities for computing metrics, gene contributions, and understanding basis performance.</p>
+<section id="compute-predictivity">
+<h2>compute_predictivity<a class="headerlink" href="#compute-predictivity" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Compute the predictivity matrix showing how each gene contributes to each cell type score.</p>
+<p><strong>Mathematical Background</strong>:</p>
+<p>The predictivity matrix <span class="math notranslate nohighlight">\(\\eta\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\eta = (\\xi^T \\xi)^{-1} \\xi^T\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\\xi\)</span> is the basis matrix (genes × cell types).</p>
+<p>Each entry <span class="math notranslate nohighlight">\(\\eta_{ct,g}\)</span> represents how much gene <span class="math notranslate nohighlight">\(g\)</span> contributes to the score for cell type <span class="math notranslate nohighlight">\(ct\)</span>.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>basis</strong> (<em>pd.DataFrame</em>): Cell type basis (genes × cell types)</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>pd.DataFrame</strong>: Predictivity matrix (cell types × genes)</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute predictivity from basis</span>
+<span class="n">predictivity</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">compute_predictivity</span><span class="p">(</span><span class="n">basis</span><span class="p">)</span>
+
+<span class="c1"># See which genes contribute most to T cell score</span>
+<span class="n">t_cell_pred</span> <span class="o">=</span> <span class="n">predictivity</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;T cell&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 10 T cell predictor genes:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">t_cell_pred</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Positive values: gene expression increases cell type score</span>
+<span class="c1"># Negative values: gene expression decreases cell type score</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Predictivity is computed once and can be reused</p></li>
+<li><p>Used internally by contribution analysis functions</p></li>
+<li><p>Reveals gene importance for each cell type</p></li>
+</ul>
+</section>
+<section id="compute-gene-contributions">
+<h2>compute_gene_contributions<a class="headerlink" href="#compute-gene-contributions" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Compute gene-level contributions to cell type scores for specific samples.</p>
+<p><strong>How It Works</strong>:</p>
+<p>For each cell type, contribution is computed as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\text{contribution}_{g,s} = \\text{expression}_{g,s} \\times \\text{predictivity}_{ct,g}\end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(g\)</span> = gene</p></li>
+<li><p><span class="math notranslate nohighlight">\(s\)</span> = sample</p></li>
+<li><p><span class="math notranslate nohighlight">\(ct\)</span> = cell type</p></li>
+</ul>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame or array</em>): Expression data (genes × samples)</p></li>
+<li><p><strong>basis</strong> (<em>pd.DataFrame</em>): Cell type basis</p></li>
+<li><p><strong>predictivity</strong> (<em>pd.DataFrame</em>, optional): Precomputed predictivity (computed if None)</p></li>
+<li><p><strong>cell_types</strong> (<em>list</em>, optional): Cell types to analyze (default: all)</p></li>
+<li><p><strong>process_data</strong> (<em>bool</em>, default=True): Whether to process raw counts first</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>dict</strong>: Maps cell_type → contribution_matrix (genes × samples)</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute contributions for all cell types</span>
+<span class="n">contributions</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">compute_gene_contributions</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">sample_data</span><span class="p">,</span>
+    <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+    <span class="n">process_data</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="c1"># Analyze T cell contributions</span>
+<span class="n">t_cell_contrib</span> <span class="o">=</span> <span class="n">contributions</span><span class="p">[</span><span class="s1">&#39;T cell&#39;</span><span class="p">]</span>
+
+<span class="c1"># Find genes driving T cell score in sample 1</span>
+<span class="n">sample1_contrib</span> <span class="o">=</span> <span class="n">t_cell_contrib</span><span class="p">[</span><span class="s1">&#39;sample_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top 20 genes driving T cell assignment:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sample1_contrib</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Use Cases</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Identify marker genes</strong>: Which genes drive cell type assignments?</p></li>
+<li><p><strong>Validate assignments</strong>: Do expected markers contribute highly?</p></li>
+<li><p><strong>Compare samples</strong>: How do contributions differ across conditions?</p></li>
+<li><p><strong>Quality control</strong>: Are unexpected genes contributing?</p></li>
+</ol>
+</section>
+<section id="find-top-contributing-genes">
+<h2>find_top_contributing_genes<a class="headerlink" href="#find-top-contributing-genes" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Identify the top contributing genes from a contribution matrix.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>contributions</strong> (<em>pd.DataFrame</em>): Gene contributions (genes × samples)</p></li>
+<li><p><strong>n_genes</strong> (<em>int</em>, default=20): Number of top genes to return</p></li>
+<li><p><strong>aggregate</strong> (<em>str</em>, default=’mean’): How to aggregate across samples</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'mean'</span></code>: Average contribution</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'median'</span></code>: Median contribution</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'max'</span></code>: Maximum contribution</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>pd.Series</strong>: Top genes with their aggregated contribution scores</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get contributions for a cell type</span>
+<span class="n">contrib</span> <span class="o">=</span> <span class="n">contributions</span><span class="p">[</span><span class="s1">&#39;Macrophage&#39;</span><span class="p">]</span>
+
+<span class="c1"># Find top 30 genes by mean contribution</span>
+<span class="n">top_genes</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">find_top_contributing_genes</span><span class="p">(</span>
+    <span class="n">contributions</span><span class="o">=</span><span class="n">contrib</span><span class="p">,</span>
+    <span class="n">n_genes</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+    <span class="n">aggregate</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top macrophage marker genes:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">gene</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">top_genes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">gene</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Aggregation Methods</strong>:</p>
+<ul class="simple">
+<li><p><strong>mean</strong>: Good for consistent markers across samples</p></li>
+<li><p><strong>median</strong>: Robust to outliers</p></li>
+<li><p><strong>max</strong>: Finds genes with strongest contribution in any sample</p></li>
+</ul>
+</section>
+<section id="perform-anova-selection">
+<h2>perform_anova_selection<a class="headerlink" href="#perform-anova-selection" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Select informative genes using one-way ANOVA F-test.</p>
+<p><strong>Description</strong>:</p>
+<p>IMPORTANT: The best practice is to carefully curate your basis by seriously considering what is a biologically meaningful cell type and combining similar cell types (e.g. although epithelial cells are very specialized, many stromal and immune cell types are functionally identical). Merging similar cell types, dropping cell types with very few cells, and dropping questionably-annotated cell types should ALWAYS be done first before considering feature selection. Feature selection should be a last resort to improve performance after careful curation of cell types.</p>
+<p>ANOVA feature selection identifies genes that differ significantly across cell types. This selects genes that discriminate between cell types the most. These may or may not be biologically meaningful.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>basis</strong> (<em>pd.DataFrame</em>): The basis matrix</p></li>
+<li><p><strong>adata</strong> (<em>ad.AnnData</em>): Full annotated dataset</p></li>
+<li><p><strong>training_IDs</strong> (<em>np.ndarray</em>): Training cell IDs</p></li>
+<li><p><strong>cell_type_column</strong> (<em>str</em>): Column with cell type labels</p></li>
+<li><p><strong>n_features</strong> (<em>int</em>, default=2000): Number of genes to keep</p></li>
+<li><p><strong>percentile</strong> (<em>float</em>, optional): Keep top percentile (overrides n_features)</p></li>
+<li><p><strong>standardize</strong> (<em>bool</em>, default=True): Whether to standardize basis after selection</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>basis_selected</strong> (<em>pd.DataFrame</em>): Basis with only selected genes</p></li>
+<li><p><strong>selected_genes</strong> (<em>np.ndarray</em>): Array of selected gene names</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sctop.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">perform_anova_selection</span>
+
+<span class="c1"># Select top 5000 genes</span>
+<span class="n">basis_filtered</span><span class="p">,</span> <span class="n">genes</span> <span class="o">=</span> <span class="n">perform_anova_selection</span><span class="p">(</span>
+    <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+    <span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+    <span class="n">training_IDs</span><span class="o">=</span><span class="n">train_ids</span><span class="p">,</span>
+    <span class="n">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
+    <span class="n">n_features</span><span class="o">=</span><span class="mi">5000</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reduced from </span><span class="si">{</span><span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">basis_filtered</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> genes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Higher F-scores indicate better discrimination</p></li>
+<li><p>May remove cell-type-specific markers with moderate expression</p></li>
+<li><p>Most useful for large gene sets (&gt;20k genes)</p></li>
+<li><p>Standardization ensures basis vectors have unit norm</p></li>
+</ul>
+</section>
+<section id="calculate-metrics">
+<h2>calculate_metrics<a class="headerlink" href="#calculate-metrics" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Calculate comprehensive classification metrics from predictions.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>true_labels</strong> (<em>list</em>): Ground truth cell type labels</p></li>
+<li><p><strong>predicted_labels</strong> (<em>list</em>): Predicted cell type labels</p></li>
+<li><p><strong>total_cells</strong> (<em>int</em>): Total number of cells</p></li>
+<li><p><strong>accuracies</strong> (<em>dict</em>): Dictionary with counts for top1, top3, unspecified</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>dict</strong>: Metrics including:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">accuracy</span></code>: Top-1 accuracy (correct predictions / total)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">top3_accuracy</span></code>: Top-3 accuracy</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unspecified_rate</span></code>: Fraction below confidence threshold</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f1_macro</span></code>: Macro-averaged F1 score</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f1_weighted</span></code>: Weighted F1 score</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">precision_macro</span></code>, <code class="docutils literal notranslate"><span class="pre">precision_weighted</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recall_macro</span></code>, <code class="docutils literal notranslate"><span class="pre">recall_weighted</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">total_cells</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sctop.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_metrics</span>
+
+<span class="n">metrics</span> <span class="o">=</span> <span class="n">calculate_metrics</span><span class="p">(</span>
+    <span class="n">true_labels</span><span class="o">=</span><span class="n">true_types</span><span class="p">,</span>
+    <span class="n">predicted_labels</span><span class="o">=</span><span class="n">pred_types</span><span class="p">,</span>
+    <span class="n">total_cells</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">test_ids</span><span class="p">),</span>
+    <span class="n">accuracies</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;top1&#39;</span><span class="p">:</span> <span class="mi">850</span><span class="p">,</span> <span class="s1">&#39;top3&#39;</span><span class="p">:</span> <span class="mi">920</span><span class="p">,</span> <span class="s1">&#39;unspecified&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;F1 (weighted): </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;f1_weighted&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="calculate-per-cell-type-accuracy">
+<h2>calculate_per_cell_type_accuracy<a class="headerlink" href="#calculate-per-cell-type-accuracy" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Compute accuracy metrics for each individual cell type.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>cell_accuracies</strong> (<em>dict</em>): Per-cell accuracy information</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>pd.DataFrame</strong>: Per-cell-type metrics with columns:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">correct</span></code>: Number of correctly classified cells</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">total</span></code>: Total cells of this type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">accuracy</span></code>: Fraction correct</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">top3_correct</span></code>: Correct within top 3 predictions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">top3_accuracy</span></code>: Top-3 accuracy</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unspecified_count</span></code>: Cells below confidence threshold</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unspecified_rate</span></code>: Fraction unspecified</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sctop.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">calculate_per_cell_type_accuracy</span>
+
+<span class="n">per_type</span> <span class="o">=</span> <span class="n">calculate_per_cell_type_accuracy</span><span class="p">(</span><span class="n">cell_accs</span><span class="p">)</span>
+
+<span class="c1"># Find worst performers</span>
+<span class="n">worst</span> <span class="o">=</span> <span class="n">per_type</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;accuracy&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Worst performing cell types:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">worst</span><span class="p">[[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">]])</span>
+
+<span class="c1"># Find types with many unspecified</span>
+<span class="n">high_unspec</span> <span class="o">=</span> <span class="n">per_type</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;unspecified_rate&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Sorted by accuracy (best to worst)</p></li>
+<li><p>Useful for identifying problematic cell types</p></li>
+<li><p>Consider merging types with low accuracy and high confusion</p></li>
+</ul>
+</section>
+<section id="run-scoring-parallel">
+<h2>run_scoring_parallel<a class="headerlink" href="#run-scoring-parallel" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Score test cells against basis in parallel (internal function used by <code class="docutils literal notranslate"><span class="pre">create_basis</span></code>).</p>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p>Thread-based parallelism for shared-memory efficiency</p></li>
+<li><p>Automatic chunking of test set</p></li>
+<li><p>Progress bar via tqdm</p></li>
+<li><p>Returns detailed per-cell metrics</p></li>
+</ul>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>adata</strong> (<em>ad.AnnData</em>): Full dataset</p></li>
+<li><p><strong>basis</strong> (<em>pd.DataFrame</em>): Cell type basis</p></li>
+<li><p><strong>test_IDs</strong> (<em>np.ndarray</em>): Test cell IDs to score</p></li>
+<li><p><strong>cell_type_column</strong> (<em>str</em>): Cell type column name</p></li>
+<li><p><strong>spec_value</strong> (<em>float</em>): Threshold for unspecified predictions</p></li>
+<li><p><strong>outer_chunks</strong> (<em>int</em>): Number of chunks</p></li>
+<li><p><strong>inner_chunk_size</strong> (<em>int</em>): Chunk size for internal processing</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em>, default=4): Number of parallel workers</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>Tuple of:</p>
+<ul class="simple">
+<li><p><strong>cell_accuracies</strong> (<em>dict</em>): Per-cell results</p></li>
+<li><p><strong>true_labels</strong> (<em>list</em>): Ground truth labels</p></li>
+<li><p><strong>predicted_labels</strong> (<em>list</em>): Predicted labels</p></li>
+<li><p><strong>accuracies</strong> (<em>dict</em>): Aggregate counts</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sctop.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_scoring_parallel</span>
+
+<span class="n">cell_accs</span><span class="p">,</span> <span class="n">true_labs</span><span class="p">,</span> <span class="n">pred_labs</span><span class="p">,</span> <span class="n">accs</span> <span class="o">=</span> <span class="n">run_scoring_parallel</span><span class="p">(</span>
+    <span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+    <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+    <span class="n">test_IDs</span><span class="o">=</span><span class="n">test_ids</span><span class="p">,</span>
+    <span class="n">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
+    <span class="n">spec_value</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">outer_chunks</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">inner_chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Top-1 accuracy: </span><span class="si">{</span><span class="n">accs</span><span class="p">[</span><span class="s1">&#39;top1&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">test_ids</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Performance Tuning</strong>:</p>
+<p>For fast scoring:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">outer_chunks</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">inner_chunk_size</span><span class="o">=</span><span class="mi">1000</span>
+</pre></div>
+</div>
+<p>For memory-constrained:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">outer_chunks</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">inner_chunk_size</span><span class="o">=</span><span class="mi">500</span>
+</pre></div>
+</div>
+</section>
+<section id="plot-performance-summary">
+<h2>plot_performance_summary<a class="headerlink" href="#plot-performance-summary" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Generate comprehensive visualization of classification performance.</p>
+<p><strong>Creates</strong>:</p>
+<ol class="arabic simple">
+<li><p><strong>Confusion Matrix</strong>: Normalized by true labels (recall)</p></li>
+<li><p><strong>F1 Score Bar Plot</strong>: Per-cell-type F1 scores</p></li>
+</ol>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>true_labels</strong> (<em>list</em>): True cell type labels</p></li>
+<li><p><strong>predicted_labels</strong> (<em>list</em>): Predicted labels</p></li>
+<li><p><strong>figsize_base</strong> (<em>int</em>, default=10): Base figure size (scales with #types)</p></li>
+<li><p><strong>f1_df</strong> (<em>pd.DataFrame</em>, optional): Precomputed F1 scores</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sctop.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_performance_summary</span>
+
+<span class="n">plot_performance_summary</span><span class="p">(</span>
+    <span class="n">true_labels</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;true_labels&#39;</span><span class="p">],</span>
+    <span class="n">predicted_labels</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;predicted_labels&#39;</span><span class="p">],</span>
+    <span class="n">f1_df</span><span class="o">=</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;f1_scores&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Automatically called by <code class="docutils literal notranslate"><span class="pre">create_basis</span></code> if <code class="docutils literal notranslate"><span class="pre">plot_results=True</span></code></p></li>
+<li><p>Figure size scales with number of cell types</p></li>
+<li><p>Confusion matrix is normalized (shows recall per type)</p></li>
+<li><p>Useful for identifying confused cell type pairs</p></li>
+</ul>
+</section>
+<section id="print-metrics">
+<h2>print_metrics<a class="headerlink" href="#print-metrics" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Pretty-print metrics dictionary.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>metrics</strong> (<em>dict</em>): Metrics dictionary from <code class="docutils literal notranslate"><span class="pre">calculate_metrics</span></code></p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sctop.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_metrics</span>
+
+<span class="n">print_metrics</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;metrics&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Accuracy</span> <span class="p">(</span><span class="n">Top</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="mf">0.8723</span>
+<span class="n">Top</span><span class="o">-</span><span class="mi">3</span> <span class="n">Accuracy</span><span class="p">:</span> <span class="mf">0.9541</span>
+<span class="n">Unspecified</span> <span class="n">Rate</span><span class="p">:</span> <span class="mf">0.0234</span>
+<span class="n">F1</span> <span class="n">Score</span> <span class="p">(</span><span class="n">Macro</span><span class="p">):</span> <span class="mf">0.8456</span>
+<span class="n">F1</span> <span class="n">Score</span> <span class="p">(</span><span class="n">Weighted</span><span class="p">):</span> <span class="mf">0.8701</span>
+<span class="n">Precision</span> <span class="p">(</span><span class="n">Macro</span><span class="p">):</span> <span class="mf">0.8532</span>
+<span class="n">Precision</span> <span class="p">(</span><span class="n">Weighted</span><span class="p">):</span> <span class="mf">0.8745</span>
+<span class="n">Recall</span> <span class="p">(</span><span class="n">Macro</span><span class="p">):</span> <span class="mf">0.8512</span>
+<span class="n">Recall</span> <span class="p">(</span><span class="n">Weighted</span><span class="p">):</span> <span class="mf">0.8723</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="basis.html" class="btn btn-neutral float-left" title="Refrence Basis Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="visualization.html" class="btn btn-neutral float-right" title="Visualization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emergent Behaviors in Biology Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

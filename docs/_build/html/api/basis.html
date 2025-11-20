@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refrence Basis Management &mdash; scTOP 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=51b770b3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Analysis Functions" href="analysis.html" />
+    <link rel="prev" title="Core Functions" href="core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            scTOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Refrence Basis Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-available-bases">list_available_bases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-basis">load_basis</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mcko-legacy">MCKO legacy</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#create-basis">create_basis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analyze-sample-contributions">analyze_sample_contributions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualization.html">Visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-functions">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#basis-management">Basis Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#analysis-functions">Analysis Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">scTOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Refrence Basis Management</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/basis.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="refrence-basis-management">
+<h1>Refrence Basis Management<a class="headerlink" href="#refrence-basis-management" title="Link to this heading"></a></h1>
+<p>Functions for loading pre-made reference bases and creating custom reference bases from annotated data.</p>
+<section id="list-available-bases">
+<h2>list_available_bases<a class="headerlink" href="#list-available-bases" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: List all pre-computed reference bases available for download.</p>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>list</strong>: Names of available basis keys</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sctop</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">top</span>
+
+<span class="n">available</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">list_available_bases</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Available bases:&quot;</span><span class="p">,</span> <span class="n">available</span><span class="p">)</span>
+<span class="c1"># [&#39;MCKO legacy&#39;]</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Bases are hosted on Figshare</p></li>
+<li><p>New bases may be added over time</p></li>
+<li><p>Use the returned keys with <code class="docutils literal notranslate"><span class="pre">load_basis()</span></code></p></li>
+</ul>
+</section>
+<section id="load-basis">
+<h2>load_basis<a class="headerlink" href="#load-basis" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Download and load a pre-made reference basis from online storage.</p>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p>Automatic download with progress bar</p></li>
+<li><p>Local caching to avoid re-downloading</p></li>
+<li><p>Returns both basis and metadata</p></li>
+</ul>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>basis_key</strong> (<em>str</em>): Name of the basis (from <code class="docutils literal notranslate"><span class="pre">list_available_bases()</span></code>)</p></li>
+<li><p><strong>cache_dir</strong> (<em>str or Path</em>, optional): Directory to cache downloaded files (default: system temp)</p></li>
+<li><p><strong>force_download</strong> (<em>bool</em>, default=False): Re-download even if cached</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>basis</strong> (<em>pd.DataFrame</em>): Cell type basis (genes × cell types)</p></li>
+<li><p><strong>metadata</strong> (<em>pd.DataFrame</em>): Cell type metadata</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load with default cache location</span>
+<span class="n">basis</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">load_basis</span><span class="p">(</span><span class="s2">&quot;MCKO legacy&quot;</span><span class="p">)</span>
+
+<span class="c1"># Use custom cache directory</span>
+<span class="n">basis</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">load_basis</span><span class="p">(</span>
+    <span class="n">basis_key</span><span class="o">=</span><span class="s2">&quot;MCKO legacy&quot;</span><span class="p">,</span>
+    <span class="n">cache_dir</span><span class="o">=</span><span class="s2">&quot;./my_bases&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Force re-download</span>
+<span class="n">basis</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">load_basis</span><span class="p">(</span>
+    <span class="n">basis_key</span><span class="o">=</span><span class="s2">&quot;MCKO legacy&quot;</span><span class="p">,</span>
+    <span class="n">force_download</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded basis: </span><span class="si">{</span><span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> genes × </span><span class="si">{</span><span class="n">basis</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> cell types&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cell types:&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">basis</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>First download may take time depending on connection</p></li>
+<li><p>Subsequent loads are instant (cached)</p></li>
+<li><p>Basis is already processed (ready for <code class="docutils literal notranslate"><span class="pre">score()</span></code>)</p></li>
+<li><p>Check metadata for cell type counts and other info</p></li>
+</ul>
+<p><strong>Available Bases</strong>:</p>
+<section id="mcko-legacy">
+<h3>MCKO legacy<a class="headerlink" href="#mcko-legacy" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Source</strong>: Mouse Cell Atlas (Kotton lab variant)</p></li>
+<li><p><strong>Organism</strong>: Mouse (<em>Mus musculus</em>)</p></li>
+<li><p><strong>Cell types</strong>: Over 100 major cell types</p></li>
+<li><p><strong>Format</strong>: Pre-processed, ready to use</p></li>
+</ul>
+</section>
+</section>
+<section id="create-basis">
+<h2>create_basis<a class="headerlink" href="#create-basis" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Create a custom cell type reference basis from annotated scRNA-seq data with automatic validation.</p>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p>Train-test split or k-fold cross-validation</p></li>
+<li><p>Optional ANOVA feature selection</p></li>
+<li><p>Parallel processing for speed</p></li>
+<li><p>Comprehensive performance metrics</p></li>
+<li><p>Confusion matrix and per-cell-type accuracy</p></li>
+<li><p>Memory-efficient chunking</p></li>
+<li><p>Automatic visualization of results</p></li>
+</ul>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>adata</strong> (<em>ad.AnnData</em>): Annotated data object with cell type labels</p></li>
+<li><p><strong>cell_type_column</strong> (<em>str</em>): Column name in <code class="docutils literal notranslate"><span class="pre">adata.obs</span></code> containing cell types</p></li>
+<li><p><strong>threshold</strong> (<em>int</em>): Minimum number of cells required per cell type</p></li>
+<li><p><strong>test_size</strong> (<em>float</em>, default=0.2): Fraction of data for testing (if cv_folds=None)</p></li>
+<li><p><strong>random_state</strong> (<em>int</em>, default=42): Random seed for reproducibility</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em>, default=-1): Number of parallel jobs (-1 = all cores)</p></li>
+<li><p><strong>do_anova</strong> (<em>bool</em>, default=False): Whether to perform feature selection</p></li>
+<li><p><strong>n_features</strong> (<em>int</em>, default=20000): Number of features to select (if do_anova=True)</p></li>
+<li><p><strong>anova_percentile</strong> (<em>float</em>, optional): Keep top percentile of genes (overrides n_features)</p></li>
+<li><p><strong>spec_value</strong> (<em>float</em>, default=0.1): Threshold for “unspecified” predictions</p></li>
+<li><p><strong>outer_chunks</strong> (<em>int</em>, default=10): Number of chunks for parallel scoring</p></li>
+<li><p><strong>inner_chunk_size</strong> (<em>int</em>, default=1000): Chunk size for internal processing</p></li>
+<li><p><strong>n_scoring_jobs</strong> (<em>int</em>, default=4): Number of parallel jobs for scoring</p></li>
+<li><p><strong>cv_folds</strong> (<em>int</em>, optional): If specified, use k-fold cross-validation instead of train-test</p></li>
+<li><p><strong>plot_results</strong> (<em>bool</em>, default=True): Whether to generate performance plots</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>Dictionary containing:</p>
+<ul class="simple">
+<li><p><strong>basis</strong> (<em>pd.DataFrame</em>): Final cell type basis (genes × cell types)</p></li>
+<li><p><strong>selected_genes</strong> (<em>np.ndarray</em> or None): Selected genes if ANOVA was used</p></li>
+<li><p><strong>training_IDs</strong> (<em>np.ndarray</em>): Cell IDs used for training</p></li>
+<li><p><strong>test_IDs</strong> (<em>np.ndarray</em>): Cell IDs used for testing</p></li>
+<li><p><strong>metrics</strong> (<em>dict</em>): Performance metrics including:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">accuracy</span></code>: Top-1 accuracy</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">top3_accuracy</span></code>: Top-3 accuracy</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unspecified_rate</span></code>: Fraction of low-confidence predictions</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">f1_macro</span></code>, <code class="docutils literal notranslate"><span class="pre">f1_weighted</span></code>: F1 scores</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">precision_macro</span></code>, <code class="docutils literal notranslate"><span class="pre">precision_weighted</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">recall_macro</span></code>, <code class="docutils literal notranslate"><span class="pre">recall_weighted</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>confusion_matrix</strong> (<em>np.ndarray</em>): Confusion matrix</p></li>
+<li><p><strong>confusion_matrix_labels</strong> (<em>list</em>): Cell type labels for confusion matrix</p></li>
+<li><p><strong>per_cell_type</strong> (<em>pd.DataFrame</em>): Per-cell-type accuracy metrics</p></li>
+<li><p><strong>f1_scores</strong> (<em>pd.DataFrame</em>): F1 scores for each cell type</p></li>
+<li><p><strong>true_labels</strong> (<em>list</em>): True cell type labels (test set)</p></li>
+<li><p><strong>predicted_labels</strong> (<em>list</em>): Predicted cell type labels (test set)</p></li>
+<li><p><strong>cv_results</strong> (<em>list</em>, optional): Cross-validation fold results (if cv_folds specified)</p></li>
+<li><p><strong>cv_avg_metrics</strong> (<em>dict</em>, optional): Average CV metrics (if cv_folds specified)</p></li>
+</ul>
+<p><strong>Example 1: Basic Usage</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">anndata</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ad</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sctop</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">top</span>
+
+<span class="c1"># Load annotated data</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s2">&quot;mouse_atlas.h5ad&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create basis with validation</span>
+<span class="c1"># plot_results = True will display performance metrics like accuracy and F1 scores</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">create_basis</span><span class="p">(</span>
+    <span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+    <span class="n">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># At least 100 cells per type</span>
+    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">plot_results</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="c1"># Get the basis</span>
+<span class="n">basis</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;basis&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Example 2: Memory-Efficient for Large Datasets</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">create_basis</span><span class="p">(</span>
+    <span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+    <span class="n">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Limit parallel jobs</span>
+    <span class="n">n_scoring_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">inner_chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>  <span class="c1"># Smaller chunks</span>
+    <span class="n">outer_chunks</span><span class="o">=</span><span class="mi">50</span>  <span class="c1"># More chunks</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<dl>
+<dt><strong>Example 3: With Feature Selection</strong>::</dt><dd><p>IMPORTANT: The best practice is to carefully curate your basis by seriously considering what is a biologically meaningful cell type and combining similar cell types (e.g. although epithelial cells are very specialized, many stromal and immune cell types are functionally identical). Merging similar cell types, dropping cell types with very few cells, and dropping questionably-annotated cell types should ALWAYS be done first before considering feature selection. Feature selection should be a last resort to improve performance after careful curation of cell types.</p>
+<dl class="simple">
+<dt>results = top.create_basis(</dt><dd><p>adata=adata,
+cell_type_column=’cell_type’,
+threshold=100,
+do_anova=True,
+n_features=5000,  # Select top 5000 genes
+random_state=42</p>
+</dd>
+</dl>
+<p>)</p>
+<p>selected_genes = results[‘selected_genes’]
+print(f”Selected {len(selected_genes)} informative genes”)</p>
+</dd>
+</dl>
+<p><strong>Example 4: Cross-Validation</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">create_basis</span><span class="p">(</span>
+    <span class="n">adata</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span>
+    <span class="n">cell_type_column</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">cv_folds</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># 5-fold cross-validation</span>
+    <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="c1"># Check CV results</span>
+<span class="n">cv_metrics</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;cv_avg_metrics&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CV Accuracy: </span><span class="si">{</span><span class="n">cv_metrics</span><span class="p">[</span><span class="s1">&#39;accuracy_mean&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> ± </span><span class="si">{</span><span class="n">cv_metrics</span><span class="p">[</span><span class="s1">&#39;accuracy_std&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p><strong>Threshold</strong>: Cell types with fewer than <code class="docutils literal notranslate"><span class="pre">threshold</span></code> cells are excluded</p></li>
+<li><p><strong>Unspecified</strong>: Cells with max score &lt; <code class="docutils literal notranslate"><span class="pre">spec_value</span></code> are marked “unspecified”</p></li>
+<li><p><strong>Parallelization</strong>: Uses thread pools for shared-memory parallel processing</p></li>
+<li><p><strong>Memory</strong>: Adjust <code class="docutils literal notranslate"><span class="pre">inner_chunk_size</span></code> and <code class="docutils literal notranslate"><span class="pre">n_scoring_jobs</span></code> for large datasets</p></li>
+<li><p><strong>ANOVA</strong>: Reduces features but may remove important genes</p></li>
+<li><p><strong>Cross-validation</strong>: More robust but slower than single train-test split</p></li>
+</ul>
+<p><strong>Performance Tips</strong>:</p>
+<p>For small datasets (&lt;10k cells):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">create_basis</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># Use all cores</span>
+    <span class="n">n_scoring_jobs</span><span class="o">=</span><span class="mi">8</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>For large datasets (&gt;100k cells):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">create_basis</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>  <span class="c1"># Conservative</span>
+    <span class="n">n_scoring_jobs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">inner_chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">outer_chunks</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Troubleshooting</strong>:</p>
+<ul class="simple">
+<li><p>Check per-cell-type metrics to find problematic types</p></li>
+<li><p>Examine confusion matrix for similar types</p></li>
+<li><p>Consider merging similar cell types</p></li>
+<li><p>Increase <code class="docutils literal notranslate"><span class="pre">threshold</span></code> to require more cells per type</p></li>
+<li><p>Try ANOVA feature selection as a last resort</p></li>
+</ul>
+</section>
+<section id="analyze-sample-contributions">
+<h2>analyze_sample_contributions<a class="headerlink" href="#analyze-sample-contributions" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Analyze which genes contribute most to cell type scores across multiple samples.</p>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p>Computes gene-level contributions for each cell type</p></li>
+<li><p>Identifies top contributing genes per sample</p></li>
+<li><p>Handles multiple samples/clusters simultaneously</p></li>
+<li><p>Optional data processing</p></li>
+</ul>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>sample_data_dict</strong> (<em>dict</em>): Maps sample_name → expression_data (DataFrame or array)</p></li>
+<li><p><strong>basis</strong> (<em>pd.DataFrame</em>): Cell type basis</p></li>
+<li><p><strong>cell_types</strong> (<em>list</em>, optional): Cell types to analyze (default: all in basis)</p></li>
+<li><p><strong>n_top_genes</strong> (<em>int</em>, default=20): Number of top genes to identify</p></li>
+<li><p><strong>process_data</strong> (<em>bool</em>, default=True): Whether to process raw counts</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<p>Dictionary with structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">cell_type</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;contributions&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">sample_name</span><span class="p">:</span> <span class="n">contribution_matrix</span><span class="p">},</span>
+        <span class="s1">&#39;top_genes&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">sample_name</span><span class="p">:</span> <span class="p">[</span><span class="n">gene1</span><span class="p">,</span> <span class="n">gene2</span><span class="p">,</span> <span class="o">...</span><span class="p">]},</span>
+        <span class="s1">&#39;expressions&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">sample_name</span><span class="p">:</span> <span class="n">expression_matrix</span><span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Prepare sample dictionary</span>
+<span class="n">sample_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;cluster_1&#39;</span><span class="p">:</span> <span class="n">cluster1_counts</span><span class="p">,</span>
+    <span class="s1">&#39;cluster_2&#39;</span><span class="p">:</span> <span class="n">cluster2_counts</span><span class="p">,</span>
+    <span class="s1">&#39;cluster_3&#39;</span><span class="p">:</span> <span class="n">cluster3_counts</span>
+<span class="p">}</span>
+
+<span class="c1"># Analyze contributions</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">analyze_sample_contributions</span><span class="p">(</span>
+    <span class="n">sample_data_dict</span><span class="o">=</span><span class="n">sample_dict</span><span class="p">,</span>
+    <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+    <span class="n">cell_types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;T cell&#39;</span><span class="p">,</span> <span class="s1">&#39;B cell&#39;</span><span class="p">,</span> <span class="s1">&#39;Macrophage&#39;</span><span class="p">],</span>
+    <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+
+<span class="c1"># Get top genes for T cells in cluster 1</span>
+<span class="n">t_cell_genes</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;T cell&#39;</span><span class="p">][</span><span class="s1">&#39;top_genes&#39;</span><span class="p">][</span><span class="s1">&#39;cluster_1&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Top T cell genes in cluster 1:&quot;</span><span class="p">,</span> <span class="n">t_cell_genes</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="c1"># Get contribution matrix</span>
+<span class="n">t_cell_contrib</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">&#39;T cell&#39;</span><span class="p">][</span><span class="s1">&#39;contributions&#39;</span><span class="p">][</span><span class="s1">&#39;cluster_1&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Contribution = gene expression × predictivity</p></li>
+<li><p>Higher contribution = gene more responsible for that cell type score</p></li>
+<li><p>Useful for identifying markers and understanding assignments</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="core.html" class="btn btn-neutral float-left" title="Core Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="analysis.html" class="btn btn-neutral float-right" title="Analysis Functions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emergent Behaviors in Biology Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

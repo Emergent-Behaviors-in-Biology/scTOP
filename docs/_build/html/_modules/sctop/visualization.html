@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sctop.visualization &mdash; scTOP 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=51b770b3"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            scTOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">scTOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">sctop.visualization</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for sctop.visualization</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.processing</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="create_colorbar">
+<a class="viewcode-back" href="../../autoapi/sctop/visualization/index.html#sctop.create_colorbar">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_colorbar</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;rocket_r&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">colormap</span><span class="p">)</span>
+    <span class="n">scalarmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">ScalarMappable</span><span class="p">(</span><span class="n">norm</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">Normalize</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">data</span><span class="p">)),</span>
+                               <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+    <span class="n">scalarmap</span><span class="o">.</span><span class="n">set_array</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scalarmap</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">cmap</span></div>
+
+    
+<div class="viewcode-block" id="plot_highest">
+<a class="viewcode-back" href="../../autoapi/sctop/visualization/index.html#sctop.plot_highest">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_highest</span><span class="p">(</span><span class="n">projections</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;olive&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots a horizontal bar chart of the top N projections with a fixed x-axis scale.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    
+    <span class="n">projections_sorted</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="n">projections</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">projections_top_n</span> <span class="o">=</span> <span class="n">projections_sorted</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">:]</span>
+    <span class="n">projections_top_n</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># --- Adjustments for Presentation ---</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    
+    <span class="n">xlabel</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="s1">&#39;Items&#39;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+    
+<div class="viewcode-block" id="plot_expression_distribution">
+<a class="viewcode-back" href="../../autoapi/sctop/visualization/index.html#sctop.plot_expression_distribution">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_expression_distribution</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">box_color</span><span class="o">=</span><span class="s2">&quot;skyblue&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots boxplots of expression for top genes with a fixed y-axis scale.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="n">gene_meds</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">top_n_genes</span> <span class="o">=</span> <span class="n">gene_meds</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+
+    <span class="n">data_to_plot_genes</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">top_n_genes</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">melted_data</span> <span class="o">=</span> <span class="n">data_to_plot_genes</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">var_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&quot;Expression&quot;</span><span class="p">)</span>
+    <span class="n">order_genes</span> <span class="o">=</span> <span class="n">top_n_genes</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Expression&quot;</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">melted_data</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">box_color</span><span class="p">,</span>
+        <span class="n">order</span><span class="o">=</span><span class="n">order_genes</span><span class="p">,</span>
+        <span class="n">showfliers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Expression&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
+    
+    
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+    
+<div class="viewcode-block" id="plot_two">
+<a class="viewcode-back" href="../../autoapi/sctop/visualization/index.html#sctop.plot_two">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_two</span><span class="p">(</span><span class="n">projections</span><span class="p">,</span> <span class="n">celltype1</span><span class="p">,</span> <span class="n">celltype2</span><span class="p">,</span> 
+             <span class="n">gene</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gene_expressions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span> <span class="ow">or</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">gene</span><span class="p">:</span>
+        <span class="n">palette</span> <span class="o">=</span> <span class="n">create_colorbar</span><span class="p">(</span><span class="n">gene_expressions</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gene</span><span class="p">],</span>
+                                  <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> expression&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gene</span><span class="p">),</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">)</span>
+        
+        <span class="n">plot</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">celltype1</span><span class="p">],</span>
+                        <span class="n">y</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">celltype2</span><span class="p">],</span>
+                        <span class="n">hue</span> <span class="o">=</span> <span class="n">gene_expressions</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">gene</span><span class="p">],</span>
+                        <span class="n">palette</span> <span class="o">=</span> <span class="n">palette</span><span class="p">,</span>
+                        <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+                        <span class="n">ax</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">kwargs</span>
+                       <span class="p">)</span>
+        <span class="n">plot</span><span class="o">.</span><span class="n">legend_</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">celltype1</span><span class="p">],</span>
+                        <span class="n">y</span> <span class="o">=</span> <span class="n">projections</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">celltype2</span><span class="p">],</span>
+                        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">kwargs</span>
+                       <span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="plot_all_contributions">
+<a class="viewcode-back" href="../../autoapi/sctop/visualization/index.html#sctop.plot_all_contributions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_all_contributions</span><span class="p">(</span>
+    <span class="n">results</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">],</span>
+    <span class="n">sample_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">output_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">highlight_genes</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">plot_kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create and save contribution plots for all cell types and samples.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    results : dict</span>
+<span class="sd">        Results from analyze_sample_contributions</span>
+<span class="sd">    sample_names : list</span>
+<span class="sd">        List of sample names to plot</span>
+<span class="sd">    output_dir : str, optional</span>
+<span class="sd">        Base directory for saving plots. If None, uses current directory</span>
+<span class="sd">    highlight_genes : dict, optional</span>
+<span class="sd">        Dictionary mapping cell_type -&gt; [genes_to_highlight]</span>
+<span class="sd">    dpi : int</span>
+<span class="sd">        DPI for saved images</span>
+<span class="sd">    **plot_kwargs</span>
+<span class="sd">        Additional kwargs passed to plot_gene_contribution_scatter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">output_dir</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span>
+    
+    <span class="c1"># Compute predictivity from first cell type (should be same for all)</span>
+    <span class="n">basis_needed</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># We&#39;ll get predictivity from results</span>
+    
+    <span class="k">for</span> <span class="n">cell_type</span><span class="p">,</span> <span class="n">cell_data</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># Create directory for this cell type</span>
+        <span class="n">cell_type_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;gene_contributions_</span><span class="si">{</span><span class="n">cell_type</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">cell_type_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating plots for </span><span class="si">{</span><span class="n">cell_type</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">sample_name</span> <span class="ow">in</span> <span class="n">sample_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">sample_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cell_data</span><span class="p">[</span><span class="s1">&#39;expressions&#39;</span><span class="p">]:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Warning: </span><span class="si">{</span><span class="n">sample_name</span><span class="si">}</span><span class="s2"> not found in results, skipping&quot;</span><span class="p">)</span>
+                <span class="k">continue</span>
+            
+            <span class="c1"># Get data</span>
+            <span class="n">expression</span> <span class="o">=</span> <span class="n">cell_data</span><span class="p">[</span><span class="s1">&#39;expressions&#39;</span><span class="p">][</span><span class="n">sample_name</span><span class="p">]</span>
+            <span class="n">contributions</span> <span class="o">=</span> <span class="n">cell_data</span><span class="p">[</span><span class="s1">&#39;contributions&#39;</span><span class="p">][</span><span class="n">sample_name</span><span class="p">]</span>
+            <span class="n">top_genes</span> <span class="o">=</span> <span class="n">cell_data</span><span class="p">[</span><span class="s1">&#39;top_genes&#39;</span><span class="p">][</span><span class="n">sample_name</span><span class="p">]</span>
+            
+            <span class="c1"># Compute predictivity from contributions and expression</span>
+            <span class="c1"># predictivity = contributions / expression (approximately)</span>
+            <span class="c1"># But better to pass it separately</span>
+            <span class="n">common_genes</span> <span class="o">=</span> <span class="n">contributions</span><span class="o">.</span><span class="n">index</span>
+            <span class="n">mean_expression</span> <span class="o">=</span> <span class="n">expression</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">common_genes</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">mean_contribution</span> <span class="o">=</span> <span class="n">contributions</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            
+            <span class="c1"># Approximate predictivity for this cell type</span>
+            <span class="n">predictivity_approx</span> <span class="o">=</span> <span class="n">mean_contribution</span> <span class="o">/</span> <span class="p">(</span><span class="n">mean_expression</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">)</span>
+            
+            <span class="c1"># Get highlight genes for this cell type</span>
+            <span class="n">highlight</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">highlight_genes</span> <span class="ow">and</span> <span class="n">cell_type</span> <span class="ow">in</span> <span class="n">highlight_genes</span><span class="p">:</span>
+                <span class="n">highlight</span> <span class="o">=</span> <span class="n">highlight_genes</span><span class="p">[</span><span class="n">cell_type</span><span class="p">]</span>
+            
+            <span class="c1"># Create plot</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">plot_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;figsize&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">)))</span>
+            
+            <span class="c1"># Use mean expression and mean contribution for plotting</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mean_expression</span><span class="p">,</span> <span class="n">mean_contribution</span><span class="p">,</span> 
+                      <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;All Genes&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            
+            <span class="c1"># Highlight top genes</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mean_expression</span><span class="p">[</span><span class="n">top_genes</span><span class="p">],</span> <span class="n">mean_contribution</span><span class="p">[</span><span class="n">top_genes</span><span class="p">],</span>
+                      <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Top </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">top_genes</span><span class="p">)</span><span class="si">}</span><span class="s1"> Genes&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+            
+            <span class="c1"># Annotate</span>
+            <span class="n">texts</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">top_genes</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">mean_expression</span><span class="p">[</span><span class="n">gene</span><span class="p">]</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">mean_contribution</span><span class="p">[</span><span class="n">gene</span><span class="p">]</span>
+                <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">gene</span><span class="p">,</span> 
+                                   <span class="n">fontsize</span><span class="o">=</span><span class="n">plot_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize_annotations&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">)))</span>
+            
+            
+            <span class="c1"># Highlight special genes</span>
+            <span class="k">if</span> <span class="n">highlight</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">highlight</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">mean_expression</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                        <span class="n">x</span> <span class="o">=</span> <span class="n">mean_expression</span><span class="p">[</span><span class="n">gene</span><span class="p">]</span>
+                        <span class="n">y</span> <span class="o">=</span> <span class="n">mean_contribution</span><span class="p">[</span><span class="n">gene</span><span class="p">]</span>
+                        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+                        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">gene</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+            
+            <span class="c1"># Formatting</span>
+            <span class="n">fontsize_labels</span> <span class="o">=</span> <span class="n">plot_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize_labels&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+            <span class="n">fontsize_title</span> <span class="o">=</span> <span class="n">plot_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize_title&#39;</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+            <span class="n">fontsize_legend</span> <span class="o">=</span> <span class="n">plot_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;fontsize_legend&#39;</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
+            
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Mean Gene Expression&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize_labels</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mean Contribution to </span><span class="si">{</span><span class="n">cell_type</span><span class="si">}</span><span class="s1"> Score&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize_labels</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">sample_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize_title</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize_legend</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+            
+            <span class="c1"># Save</span>
+            
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cell_type_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sample_name</span><span class="si">}</span><span class="s2">.png&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Saved plots to </span><span class="si">{</span><span class="n">cell_type_dir</span><span class="si">}</span><span class="s2">/&quot;</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emergent Behaviors in Biology Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

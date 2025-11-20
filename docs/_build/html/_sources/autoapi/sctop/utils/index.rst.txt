@@ -1,0 +1,144 @@
+sctop.utils
+===========
+
+.. py:module:: sctop.utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sctop.utils.perform_anova_selection
+   sctop.utils.calculate_metrics
+   sctop.utils.calculate_per_cell_type_accuracy
+   sctop.utils.print_metrics
+   sctop.utils.create_basis_optimized
+   sctop.utils.run_scoring_parallel
+   sctop.utils.score_chunk_optimized
+   sctop.utils.plot_performance_summary
+   sctop.utils.compute_predictivity
+   sctop.utils.compute_gene_contributions
+   sctop.utils.find_top_contributing_genes
+
+
+Module Contents
+---------------
+
+.. py:function:: perform_anova_selection(basis: sctop.processing.pd.DataFrame, adata: anndata.AnnData, training_IDs: sctop.processing.np.ndarray, cell_type_column: str, n_features: int = 2000, percentile: Optional[float] = None, standardize: bool = True) -> Tuple[sctop.processing.pd.DataFrame, sctop.processing.np.ndarray]
+
+   Perform ANOVA feature selection on the basis and optionally standardize.
+
+   Parameters:
+   -----------
+   basis : pd.DataFrame
+       The basis matrix (genes x cell types)
+   adata : ad.AnnData
+       The AnnData object
+   training_IDs : np.ndarray
+       Training cell IDs
+   cell_type_column : str
+       Column name for cell types
+   n_features : int
+       Number of top features to select (if percentile is None)
+   percentile : float, optional
+       Percentile of features to keep (overrides n_features)
+   standardize : bool
+       Whether to standardize the basis after selection (default: True)
+
+   Returns:
+   --------
+   basis_selected : pd.DataFrame
+       Basis with selected features only (and standardized if requested)
+   selected_genes : np.ndarray
+       Array of selected gene names
+
+
+.. py:function:: calculate_metrics(true_labels: List, predicted_labels: List, total_cells: int, accuracies: Dict) -> Dict
+
+   Calculate comprehensive metrics.
+
+
+.. py:function:: calculate_per_cell_type_accuracy(cell_accuracies: Dict) -> sctop.processing.pd.DataFrame
+
+   Calculate per cell type accuracy.
+
+
+.. py:function:: print_metrics(metrics: Dict)
+
+   Pretty print metrics.
+
+
+.. py:function:: create_basis_optimized(adata: anndata.AnnData, cell_type_column: str, threshold: int, test_size: float, random_state: int, n_jobs: int = -1) -> Tuple[sctop.processing.pd.DataFrame, sctop.processing.np.ndarray, sctop.processing.np.ndarray]
+
+   Original function - kept for backwards compatibility.
+
+
+.. py:function:: run_scoring_parallel(adata: anndata.AnnData, basis: sctop.processing.pd.DataFrame, test_IDs: sctop.processing.np.ndarray, cell_type_column: str, spec_value: float, outer_chunks: int, inner_chunk_size: int, n_jobs: int = 4) -> Tuple[dict, list, list, dict]
+
+   OPTIMIZED: Parallel scoring of test cells.
+   Uses ThreadPoolExecutor for shared-memory parallel processing.
+
+
+.. py:function:: score_chunk_optimized(adata: anndata.AnnData, basis: sctop.processing.pd.DataFrame, sample_IDs: sctop.processing.np.ndarray, cell_type_column: str, spec_value: float, inner_chunk_size: int) -> Tuple[dict, list, list, dict]
+
+   OPTIMIZED: Score a single chunk of cells.
+   Extracted for parallel processing.
+
+
+.. py:function:: plot_performance_summary(true_labels: List, predicted_labels: List, f1_df: Optional[sctop.processing.pd.DataFrame] = None, figsize_base: int = 10)
+
+   Generates and displays a Confusion Matrix and a Per-Cell-Type F1 Score plot.
+
+
+.. py:function:: compute_predictivity(basis: sctop.processing.pd.DataFrame) -> sctop.processing.pd.DataFrame
+
+   Compute predictivity matrix from basis.
+
+   The predictivity shows how each gene contributes to each cell type's score.
+   Formula: predictivity = inv(B^T @ B) @ B^T
+
+   :param basis: Basis matrix (genes x cell_types)
+   :type basis: pd.DataFrame
+
+   :returns: **predictivity** -- Predictivity matrix (cell_types x genes)
+             Shows how each gene contributes to each cell type score
+   :rtype: pd.DataFrame
+
+
+.. py:function:: compute_gene_contributions(data: Union[sctop.processing.pd.DataFrame, sctop.processing.np.ndarray], basis: sctop.processing.pd.DataFrame, predictivity: Optional[sctop.processing.pd.DataFrame] = None, cell_types: Optional[List[str]] = None, process_data: bool = True) -> Dict[str, sctop.processing.pd.DataFrame]
+
+   Compute gene-level contributions to cell type scores.
+
+   For each cell type, computes: contribution = expression * predictivity
+
+   :param data: Expression data (genes x samples)
+   :type data: DataFrame or array
+   :param basis: Basis matrix
+   :type basis: pd.DataFrame
+   :param predictivity: Precomputed predictivity matrix. If None, computed from basis
+   :type predictivity: pd.DataFrame, optional
+   :param cell_types: Cell types to compute contributions for. If None, uses all
+   :type cell_types: list, optional
+   :param process_data: Whether to process the data first (default: True)
+   :type process_data: bool
+
+   :returns: **contributions** -- Dictionary mapping cell_type -> contribution_matrix (genes x samples)
+   :rtype: dict
+
+
+.. py:function:: find_top_contributing_genes(contributions: sctop.processing.pd.DataFrame, n_genes: int = 20, aggregate: str = 'mean') -> sctop.processing.pd.Series
+
+   Find top contributing genes from contribution matrix.
+
+   :param contributions: Gene contributions (genes x samples)
+   :type contributions: pd.DataFrame
+   :param n_genes: Number of top genes to return
+   :type n_genes: int
+   :param aggregate: How to aggregate across samples: 'mean', 'median', 'max'
+   :type aggregate: str
+
+   :returns: **top_genes** -- Top contributing genes with their aggregated scores
+   :rtype: pd.Series
+
+

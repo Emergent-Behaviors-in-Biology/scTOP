@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visualization &mdash; scTOP 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=51b770b3"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorials" href="../tutorials.html" />
+    <link rel="prev" title="Analysis Functions" href="analysis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            scTOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="core.html">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basis.html">Refrence Basis Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis Functions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Visualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plot-highest">plot_highest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-expression-distribution">plot_expression_distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-two">plot_two</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-all-contributions">plot_all_contributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-colorbar">create_colorbar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#visualization-tips">Visualization Tips</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#figure-layout">Figure Layout</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#core-functions">Core Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#basis-management">Basis Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#analysis-functions">Analysis Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#visualization">Visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theory.html">Theory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">scTOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">API Reference</a></li>
+      <li class="breadcrumb-item active">Visualization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/visualization.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="visualization">
+<h1>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h1>
+<p>Functions for visualizing cell type scores, gene expression, and analysis results.</p>
+<section id="plot-highest">
+<h2>plot_highest<a class="headerlink" href="#plot-highest" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Plot horizontal bar chart of top N cell type scores for a sample.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>projections</strong> (<em>pd.Series or pd.DataFrame</em>): Cell type scores (if DataFrame, uses first column)</p></li>
+<li><p><strong>n</strong> (<em>int</em>, default=10): Number of top cell types to show</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em>, optional): Axes to plot on (creates new if None)</p></li>
+<li><p><strong>color</strong> (<em>str</em>, default=’olive’): Bar color</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em>, default=40): Font size for labels</p></li>
+<li><p><strong>**kwargs</strong>: Additional arguments passed to <code class="docutils literal notranslate"><span class="pre">plot.barh()</span></code></p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>matplotlib.axes.Axes</strong>: The axes object</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sctop</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">top</span>
+
+<span class="c1"># Score a sample</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">basis</span><span class="p">,</span> <span class="n">processed_sample</span><span class="p">)</span>
+
+<span class="c1"># Plot top 15 matches</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">top</span><span class="o">.</span><span class="n">plot_highest</span><span class="p">(</span>
+    <span class="n">scores</span><span class="p">[</span><span class="s1">&#39;sample_1&#39;</span><span class="p">],</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">&#39;steelblue&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Top Cell Type Matches&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>X-axis fixed to [0, 1] for consistency across plots</p></li>
+<li><p>Scores &gt; 1 indicate an issue with normalization</p></li>
+<li><p>Useful for quick sample interpretation</p></li>
+</ul>
+</section>
+<section id="plot-expression-distribution">
+<h2>plot_expression_distribution<a class="headerlink" href="#plot-expression-distribution" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Plot boxplots of gene expression across samples for top expressed genes.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>scores</strong> (<em>pd.DataFrame</em>): Expression data (genes × samples)</p></li>
+<li><p><strong>n</strong> (<em>int</em>, default=10): Number of top genes to show</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em>, optional): Axes to plot on</p></li>
+<li><p><strong>box_color</strong> (<em>str</em>, default=’skyblue’): Box color</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em>, default=30): Font size</p></li>
+<li><p><strong>**kwargs</strong>: Additional arguments passed to <code class="docutils literal notranslate"><span class="pre">sns.boxplot()</span></code></p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>matplotlib.axes.Axes</strong>: The axes object</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sctop</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">top</span>
+
+<span class="c1"># Show expression of top 20 genes</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">top</span><span class="o">.</span><span class="n">plot_expression_distribution</span><span class="p">(</span>
+    <span class="n">processed_sample</span><span class="p">,</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">box_color</span><span class="o">=</span><span class="s1">&#39;coral&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Top Expressed Genes&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Genes ordered by median expression</p></li>
+<li><p>Shows distribution across all samples</p></li>
+<li><p>Useful for QC and identifying highly variable genes</p></li>
+</ul>
+</section>
+<section id="plot-two">
+<h2>plot_two<a class="headerlink" href="#plot-two" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Create 2D scatter plot comparing scores for two cell types.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>projections</strong> (<em>pd.DataFrame</em>): Cell type scores (cell types × samples)</p></li>
+<li><p><strong>celltype1</strong> (<em>str</em>): First cell type (x-axis)</p></li>
+<li><p><strong>celltype2</strong> (<em>str</em>): Second cell type (y-axis)</p></li>
+<li><p><strong>gene</strong> (<em>str</em>, optional): Gene name to color points by</p></li>
+<li><p><strong>gene_expressions</strong> (<em>pd.DataFrame</em>, optional): Gene expression data (genes × samples)</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em>, optional): Axes to plot on</p></li>
+<li><p><strong>**kwargs</strong>: Additional arguments passed to <code class="docutils literal notranslate"><span class="pre">sns.scatterplot()</span></code></p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p>None (modifies axes in place)</p></li>
+</ul>
+<p><strong>Example 1: Basic 2D plot</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sctop</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">top</span>
+
+<span class="c1"># Compare T cells vs B cells</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">top</span><span class="o">.</span><span class="n">plot_two</span><span class="p">(</span>
+    <span class="n">projections</span><span class="p">,</span>
+    <span class="n">celltype1</span><span class="o">=</span><span class="s1">&#39;T cell&#39;</span><span class="p">,</span>
+    <span class="n">celltype2</span><span class="o">=</span><span class="s1">&#39;B cell&#39;</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;T cell score&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;B cell score&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;T cell vs B cell Scores&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Example 2: Color by gene expression</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Color points by CD3D expression</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">top</span><span class="o">.</span><span class="n">plot_two</span><span class="p">(</span>
+    <span class="n">projections</span><span class="p">,</span>
+    <span class="n">celltype1</span><span class="o">=</span><span class="s1">&#39;T cell&#39;</span><span class="p">,</span>
+    <span class="n">celltype2</span><span class="o">=</span><span class="s1">&#39;B cell&#39;</span><span class="p">,</span>
+    <span class="n">gene</span><span class="o">=</span><span class="s1">&#39;CD3D&#39;</span><span class="p">,</span>
+    <span class="n">gene_expressions</span><span class="o">=</span><span class="n">processed_sample</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">s</span><span class="o">=</span><span class="mi">30</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;T cell score&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;B cell score&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;T vs B cells (colored by CD3D)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Use Cases</strong>:</p>
+<ul class="simple">
+<li><p><strong>Compare related cell types</strong>: See separation between similar types</p></li>
+<li><p><strong>Validate markers</strong>: Check if marker genes correlate with expected type</p></li>
+<li><p><strong>Identify doublets</strong>: Cells with high scores for multiple incompatible types</p></li>
+<li><p><strong>Explore transitions</strong>: Identify intermediate states</p></li>
+</ul>
+</section>
+<section id="plot-all-contributions">
+<h2>plot_all_contributions<a class="headerlink" href="#plot-all-contributions" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Generate and save gene contribution scatter plots for all cell types and samples.</p>
+<p><strong>Key Features</strong>:</p>
+<ul class="simple">
+<li><p>Automatically creates organized directory structure</p></li>
+<li><p>Plots expression vs contribution for each gene</p></li>
+<li><p>Highlights top contributing genes</p></li>
+<li><p>Optional highlighting of specific genes (e.g., known markers)</p></li>
+<li><p>Saves high-resolution images</p></li>
+</ul>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>results</strong> (<em>dict</em>): Results from <code class="docutils literal notranslate"><span class="pre">analyze_sample_contributions</span></code></p></li>
+<li><p><strong>sample_names</strong> (<em>list</em>): Sample names to plot</p></li>
+<li><p><strong>output_dir</strong> (<em>str</em>, optional): Base directory for saving (default: current)</p></li>
+<li><p><strong>highlight_genes</strong> (<em>dict</em>, optional): Dict mapping cell_type → [genes_to_highlight]</p></li>
+<li><p><strong>dpi</strong> (<em>int</em>, default=150): Image resolution</p></li>
+<li><p><strong>**plot_kwargs</strong>: Additional styling arguments:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">figsize</span></code>: Figure size (default: (15, 8))</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fontsize_labels</span></code>: Axis label font size (default: 20)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fontsize_title</span></code>: Title font size (default: 30)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fontsize_legend</span></code>: Legend font size (default: 14)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fontsize_annotations</span></code>: Gene label font size (default: 18)</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p>None (saves plots to disk)</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sctop</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">top</span>
+
+<span class="c1"># Analyze contributions</span>
+<span class="n">contrib_results</span> <span class="o">=</span> <span class="n">top</span><span class="o">.</span><span class="n">analyze_sample_contributions</span><span class="p">(</span>
+    <span class="n">sample_data_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;cluster1&#39;</span><span class="p">:</span> <span class="n">data1</span><span class="p">,</span> <span class="s1">&#39;cluster2&#39;</span><span class="p">:</span> <span class="n">data2</span><span class="p">},</span>
+    <span class="n">basis</span><span class="o">=</span><span class="n">basis</span><span class="p">,</span>
+    <span class="n">cell_types</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;T cell&#39;</span><span class="p">,</span> <span class="s1">&#39;B cell&#39;</span><span class="p">,</span> <span class="s1">&#39;Macrophage&#39;</span><span class="p">],</span>
+    <span class="n">n_top_genes</span><span class="o">=</span><span class="mi">20</span>
+<span class="p">)</span>
+
+<span class="c1"># Highlight known markers</span>
+<span class="n">markers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;T cell&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CD3D&#39;</span><span class="p">,</span> <span class="s1">&#39;CD3E&#39;</span><span class="p">,</span> <span class="s1">&#39;CD8A&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;B cell&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CD19&#39;</span><span class="p">,</span> <span class="s1">&#39;MS4A1&#39;</span><span class="p">,</span> <span class="s1">&#39;CD79A&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Macrophage&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;CD68&#39;</span><span class="p">,</span> <span class="s1">&#39;CD14&#39;</span><span class="p">,</span> <span class="s1">&#39;FCGR3A&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1"># Generate all plots</span>
+<span class="n">top</span><span class="o">.</span><span class="n">plot_all_contributions</span><span class="p">(</span>
+    <span class="n">results</span><span class="o">=</span><span class="n">contrib_results</span><span class="p">,</span>
+    <span class="n">sample_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cluster1&#39;</span><span class="p">,</span> <span class="s1">&#39;cluster2&#39;</span><span class="p">],</span>
+    <span class="n">output_dir</span><span class="o">=</span><span class="s1">&#39;./gene_contribution_plots&#39;</span><span class="p">,</span>
+    <span class="n">highlight_genes</span><span class="o">=</span><span class="n">markers</span><span class="p">,</span>
+    <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">fontsize_title</span><span class="o">=</span><span class="mi">24</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Output Structure</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>output_dir/
+├── gene_contributions_T cell/
+│   ├── cluster1.png
+│   └── cluster2.png
+├── gene_contributions_B cell/
+│   ├── cluster1.png
+│   └── cluster2.png
+└── gene_contributions_Macrophage/
+    ├── cluster1.png
+    └── cluster2.png
+</pre></div>
+</div>
+<p><strong>Interpreting Plots</strong>:</p>
+<ul class="simple">
+<li><p><strong>X-axis</strong>: Mean gene expression across samples</p></li>
+<li><p><strong>Y-axis</strong>: Mean contribution to cell type score</p></li>
+<li><p><strong>Gray points</strong>: All genes</p></li>
+<li><p><strong>Blue points</strong>: Top N contributing genes (with labels)</p></li>
+<li><p><strong>Red points</strong>: Highlighted genes (if specified)</p></li>
+</ul>
+<p>High contribution + high expression → strong positive marker</p>
+<p>High contribution + low expression → potential issue (check basis)</p>
+<p>High expression + low contribution → not discriminative for this type</p>
+</section>
+<section id="create-colorbar">
+<h2>create_colorbar<a class="headerlink" href="#create-colorbar" title="Link to this heading"></a></h2>
+<p><strong>Purpose</strong>: Create a colorbar for continuous data visualization (helper function).</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em>): Data values to create colorbar for</p></li>
+<li><p><strong>label</strong> (<em>str</em>): Colorbar label</p></li>
+<li><p><strong>colormap</strong> (<em>str</em>, default=’rocket_r’): Matplotlib colormap name</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib.axes.Axes</em>, optional): Axes to add colorbar to</p></li>
+</ul>
+<p><strong>Returns</strong>:</p>
+<ul class="simple">
+<li><p><strong>matplotlib.colors.Colormap</strong>: The colormap object</p></li>
+</ul>
+<p><strong>Example</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sctop.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_colorbar</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="c1"># Create heatmap with colorbar</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">create_colorbar</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">values</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Expression Level&#39;</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span>
+<span class="p">)</span>
+
+<span class="c1"># Use cmap for plotting</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">values</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Notes</strong>:</p>
+<ul class="simple">
+<li><p>Used internally by other plotting functions</p></li>
+<li><p>Supports all matplotlib colormaps</p></li>
+<li><p>Automatically normalizes data range</p></li>
+</ul>
+</section>
+<section id="visualization-tips">
+<h2>Visualization Tips<a class="headerlink" href="#visualization-tips" title="Link to this heading"></a></h2>
+<section id="figure-layout">
+<h3>Figure Layout<a class="headerlink" href="#figure-layout" title="Link to this heading"></a></h3>
+<p>For publications:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="c1"># Set style</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Arial&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">12</span>
+
+<span class="c1"># Create figure</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Plot on each axis</span>
+<span class="n">top</span><span class="o">.</span><span class="n">plot_highest</span><span class="p">(</span><span class="n">scores1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">top</span><span class="o">.</span><span class="n">plot_highest</span><span class="p">(</span><span class="n">scores2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="c1"># ...</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;figure.pdf&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="analysis.html" class="btn btn-neutral float-left" title="Analysis Functions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emergent Behaviors in Biology Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

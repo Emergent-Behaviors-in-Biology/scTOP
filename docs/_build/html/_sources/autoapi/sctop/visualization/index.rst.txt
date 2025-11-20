@@ -1,0 +1,52 @@
+sctop.visualization
+===================
+
+.. py:module:: sctop.visualization
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sctop.visualization.create_colorbar
+   sctop.visualization.plot_highest
+   sctop.visualization.plot_expression_distribution
+   sctop.visualization.plot_two
+   sctop.visualization.plot_all_contributions
+
+
+Module Contents
+---------------
+
+.. py:function:: create_colorbar(data, label, colormap='rocket_r', ax=None)
+
+.. py:function:: plot_highest(projections, n=10, ax=None, color='olive', fontsize=40, **kwargs)
+
+   Plots a horizontal bar chart of the top N projections with a fixed x-axis scale.
+
+
+.. py:function:: plot_expression_distribution(scores, n=10, ax=None, box_color='skyblue', fontsize=30, **kwargs)
+
+   Plots boxplots of expression for top genes with a fixed y-axis scale.
+
+
+.. py:function:: plot_two(projections, celltype1, celltype2, gene=None, gene_expressions=None, ax=None, **kwargs)
+
+.. py:function:: plot_all_contributions(results: sctop.utils.Dict[str, sctop.utils.Dict], sample_names: sctop.processing.List[str], output_dir: sctop.processing.Optional[str] = None, highlight_genes: sctop.processing.Optional[sctop.utils.Dict[str, sctop.processing.List[str]]] = None, dpi: int = 150, **plot_kwargs) -> None
+
+   Create and save contribution plots for all cell types and samples.
+
+   :param results: Results from analyze_sample_contributions
+   :type results: dict
+   :param sample_names: List of sample names to plot
+   :type sample_names: list
+   :param output_dir: Base directory for saving plots. If None, uses current directory
+   :type output_dir: str, optional
+   :param highlight_genes: Dictionary mapping cell_type -> [genes_to_highlight]
+   :type highlight_genes: dict, optional
+   :param dpi: DPI for saved images
+   :type dpi: int
+   :param \*\*plot_kwargs: Additional kwargs passed to plot_gene_contribution_scatter
+
+

@@ -1,1 +1,14 @@
+sphinx>=4.0
 sphinx-autoapi
+sphinx-rtd-theme
+numpy
+pandas
+scipy
+anndata
+scikit-learn
+matplotlib
+seaborn
+tables
+numba
+tqdm
+requests

@@ -1,0 +1,209 @@
+sctop
+=====
+
+.. py:module:: sctop
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/sctop/processing/index
+   /autoapi/sctop/sctop/index
+   /autoapi/sctop/utils/index
+   /autoapi/sctop/visualization/index
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sctop.list_available_bases
+   sctop.load_basis
+   sctop.create_basis
+   sctop.analyze_sample_contributions
+   sctop.process
+   sctop.score
+   sctop.plot_highest
+   sctop.plot_expression_distribution
+   sctop.plot_two
+   sctop.plot_all_contributions
+   sctop.process
+   sctop.score
+   sctop.process
+   sctop.score
+
+
+Package Contents
+----------------
+
+.. py:function:: list_available_bases() -> sctop.processing.List[str]
+
+   List available premade bases that can be loaded.
+
+   Returns:
+   --------
+   basis_keys : list
+       List of available basis keys
+
+
+.. py:function:: load_basis(basis_key: str, cache_dir: sctop.processing.Optional[sctop.processing.Union[str, pathlib.Path]] = None, force_download: bool = False) -> sctop.processing.Tuple[sctop.processing.pd.DataFrame, sctop.processing.pd.DataFrame]
+
+   Load a basis from an h5ad file hosted online.
+
+   Parameters:
+   -----------
+   basis_key : str
+       Name/key of the basis to load (e.g., "MCKO legacy")
+   cache_dir : str, optional
+       Directory to cache downloaded files. If None, uses system temp directory.
+   force_download : bool
+       If True, re-downloads even if cached file exists
+
+   Returns:
+   --------
+   basis : pd.DataFrame
+       Basis matrix (genes x cell types)
+   metadata : pd.DataFrame
+       Metadata for the basis (cell types x attributes)
+
+   Example:
+   --------
+   >>> basis, metadata = load_basis(
+   ...     basis_key="MCKO legacy"
+   ... )
+
+
+.. py:function:: create_basis(adata: sctop.utils.ad.AnnData, cell_type_column: str, threshold: int, test_size: float = 0.2, random_state: int = 42, n_jobs: int = -1, do_anova: bool = False, n_features: int = 20000, anova_percentile: sctop.processing.Optional[float] = None, spec_value: float = 0.1, outer_chunks: int = 10, inner_chunk_size: int = 1000, n_scoring_jobs: int = 4, cv_folds: sctop.processing.Optional[int] = None, plot_results: bool = True) -> sctop.utils.Dict
+
+   Create basis and evaluate with optional ANOVA selection and cross-validation.
+
+   Parameters:
+   -----------
+   adata : ad.AnnData
+       Annotated data object
+   cell_type_column : str
+       Column name for cell types in adata.obs
+   threshold : int
+       Minimum number of cells per cell type
+   test_size : float
+       Fraction of data to use for testing (if cv_folds is None)
+   random_state : int
+       Random seed
+   n_jobs : int
+       Number of parallel jobs for basis creation
+   do_anova : bool
+       Whether to perform ANOVA feature selection
+   n_features : int
+       Number of features to select with ANOVA
+   anova_percentile : float, optional
+       Percentile of features to keep (overrides n_features)
+   spec_value : float
+       Threshold for unspecified predictions
+   outer_chunks : int
+       Number of chunks for parallel scoring
+   inner_chunk_size : int
+       Chunk size for internal processing
+   n_scoring_jobs : int
+       Number of parallel jobs for scoring
+   cv_folds : int, optional
+       Number of cross-validation folds. If None, uses single train-test split
+
+   Returns:
+   --------
+   results : dict
+       Dictionary containing:
+       - 'basis': final basis
+       - 'selected_genes': selected genes (if ANOVA)
+       - 'metrics': performance metrics
+       - 'cv_results': cross-validation results (if cv_folds is not None)
+       - 'confusion_matrix': confusion matrix
+       - 'per_cell_type': per cell type accuracy
+
+
+.. py:function:: analyze_sample_contributions(sample_data_dict: sctop.utils.Dict[str, sctop.processing.Union[sctop.processing.pd.DataFrame, sctop.processing.np.ndarray]], basis: sctop.processing.pd.DataFrame, cell_types: sctop.processing.Optional[sctop.processing.List[str]] = None, n_top_genes: int = 20, process_data: bool = True) -> sctop.utils.Dict[str, sctop.utils.Dict]
+
+   Analyze gene contributions for multiple samples/clusters.
+
+   :param sample_data_dict: Dictionary mapping sample_name -> expression_data
+   :type sample_data_dict: dict
+   :param basis: Basis matrix
+   :type basis: pd.DataFrame
+   :param cell_types: Cell types to analyze. If None, uses all
+   :type cell_types: list, optional
+   :param n_top_genes: Number of top genes to identify per sample
+   :type n_top_genes: int
+   :param process_data: Whether to process the data
+   :type process_data: bool
+
+   :returns: **results** -- Nested dictionary with structure:
+             {cell_type: {
+                 'contributions': {sample_name: contribution_matrix},
+                 'top_genes': {sample_name: [gene1, gene2, ...]},
+                 'expressions': {sample_name: expression_matrix}
+             }}
+   :rtype: dict
+
+
+.. py:function:: process(df_in: Union[pandas.DataFrame, numpy.ndarray, scipy.sparse.spmatrix], average: bool = False, chunk_size: Optional[int] = None) -> pandas.DataFrame
+
+   Process scRNA-seq data with optional chunking.
+
+
+.. py:function:: score(basis: pandas.DataFrame, sample: pandas.DataFrame, full_output: bool = False, chunk_size: Optional[int] = None) -> Union[pandas.DataFrame, List]
+
+   Project sample onto basis with optional chunking.
+
+
+.. py:function:: plot_highest(projections, n=10, ax=None, color='olive', fontsize=40, **kwargs)
+
+   Plots a horizontal bar chart of the top N projections with a fixed x-axis scale.
+
+
+.. py:function:: plot_expression_distribution(scores, n=10, ax=None, box_color='skyblue', fontsize=30, **kwargs)
+
+   Plots boxplots of expression for top genes with a fixed y-axis scale.
+
+
+.. py:function:: plot_two(projections, celltype1, celltype2, gene=None, gene_expressions=None, ax=None, **kwargs)
+
+.. py:function:: plot_all_contributions(results: sctop.utils.Dict[str, sctop.utils.Dict], sample_names: sctop.processing.List[str], output_dir: sctop.processing.Optional[str] = None, highlight_genes: sctop.processing.Optional[sctop.utils.Dict[str, sctop.processing.List[str]]] = None, dpi: int = 150, **plot_kwargs) -> None
+
+   Create and save contribution plots for all cell types and samples.
+
+   :param results: Results from analyze_sample_contributions
+   :type results: dict
+   :param sample_names: List of sample names to plot
+   :type sample_names: list
+   :param output_dir: Base directory for saving plots. If None, uses current directory
+   :type output_dir: str, optional
+   :param highlight_genes: Dictionary mapping cell_type -> [genes_to_highlight]
+   :type highlight_genes: dict, optional
+   :param dpi: DPI for saved images
+   :type dpi: int
+   :param \*\*plot_kwargs: Additional kwargs passed to plot_gene_contribution_scatter
+
+
+.. py:function:: process(df_in: Union[pandas.DataFrame, numpy.ndarray, scipy.sparse.spmatrix], average: bool = False, chunk_size: Optional[int] = None) -> pandas.DataFrame
+
+   Process scRNA-seq data with optional chunking.
+
+
+.. py:function:: score(basis: pandas.DataFrame, sample: pandas.DataFrame, full_output: bool = False, chunk_size: Optional[int] = None) -> Union[pandas.DataFrame, List]
+
+   Project sample onto basis with optional chunking.
+
+
+.. py:function:: process(df_in: Union[pandas.DataFrame, numpy.ndarray, scipy.sparse.spmatrix], average: bool = False, chunk_size: Optional[int] = None) -> pandas.DataFrame
+
+   Process scRNA-seq data with optional chunking.
+
+
+.. py:function:: score(basis: pandas.DataFrame, sample: pandas.DataFrame, full_output: bool = False, chunk_size: Optional[int] = None) -> Union[pandas.DataFrame, List]
+
+   Project sample onto basis with optional chunking.
+
+

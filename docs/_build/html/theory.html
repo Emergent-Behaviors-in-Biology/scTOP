@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Theory &mdash; scTOP 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=51b770b3"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="autoapi/index.html" />
+    <link rel="prev" title="Tutorials" href="tutorials.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            scTOP
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Theory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#theoretical-background">Theoretical Background</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#key-concepts">Key Concepts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-framework">Mathematical Framework</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#notation">Notation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-processing">Data Processing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1-normalization">Step 1: Normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-log-transformation">Step 2: Log Transformation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-rank-based-z-score-transform">Step 3: Rank-Based Z-Score Transform</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#basis-construction">Basis Construction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#creating-the-reference-basis">Creating the Reference Basis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basis-properties">Basis Properties</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scoring-projection">Scoring (Projection)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#non-orthogonal-projection">Non-Orthogonal Projection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interpretation-of-scores">Interpretation of Scores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#predictivity-matrix">Predictivity Matrix</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gene-contributions">Gene Contributions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-metrics">Performance Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#top-1-accuracy">Top-1 Accuracy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#top-3-accuracy">Top-3 Accuracy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#f1-score">F1 Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#unspecified-rate">Unspecified Rate</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-selection">Feature Selection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#anova-based-selection">ANOVA-Based Selection</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#cross-validation">Cross-Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#for-optimal-results">For Optimal Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-interpretation">For Interpretation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">scTOP</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Theory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/theory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="theory">
+<h1>Theory<a class="headerlink" href="#theory" title="Link to this heading"></a></h1>
+<p>This page explains the theoretical foundation and mathematical details of scTOP.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>scTOP (Single-cell Type Order Parameters) identifies cell phenotypes by projecting single-cell expression profiles onto a reference basis of known cell types. The method uses order parameters for Hopfield networks as defined by Kanter and Sompolinsky.</p>
+</section>
+<section id="theoretical-background">
+<h2>Theoretical Background<a class="headerlink" href="#theoretical-background" title="Link to this heading"></a></h2>
+<p>The approach is based on the work by Lang et al. (2014) in <a class="reference external" href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003734">Epigenetic Landscapes Explain Partially Reprogrammed Cells and Identify Key Reprogramming Genes</a>.</p>
+<section id="key-concepts">
+<h3>Key Concepts<a class="headerlink" href="#key-concepts" title="Link to this heading"></a></h3>
+<p><strong>Order Parameters</strong>: In physics, order parameters are a macroscopic variable describing the phase of a system. For cell types, Hopfield-inspired order parameters measure cellular identity.</p>
+<p><strong>Cell Type as Attractor State</strong>: This approach is inspired by the Waddington landscape and treating cell types as attractors in a Hopfield network. Each cell type corresponds to a stable attractor in gene expression space.</p>
+<p><strong>Projection onto Basis</strong>: By creating a basis from reference cell types, we can decompose any sample’s expression profile into contributions from each cell type.</p>
+</section>
+</section>
+<section id="mathematical-framework">
+<h2>Mathematical Framework<a class="headerlink" href="#mathematical-framework" title="Link to this heading"></a></h2>
+<section id="notation">
+<h3>Notation<a class="headerlink" href="#notation" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\\xi\)</span>: Basis matrix (genes × cell types)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\\mathbf{s}\)</span>: Processed sample vector (genes × 1)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\\mathbf{a}\)</span>: Cell type scores (cell types × 1)</p></li>
+<li><p><span class="math notranslate nohighlight">\(G\)</span>: Number of genes</p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span>: Number of cell types</p></li>
+</ul>
+</section>
+</section>
+<section id="data-processing">
+<h2>Data Processing<a class="headerlink" href="#data-processing" title="Link to this heading"></a></h2>
+<section id="step-1-normalization">
+<h3>Step 1: Normalization<a class="headerlink" href="#step-1-normalization" title="Link to this heading"></a></h3>
+<p>Each sample is independently normalized by library size:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x'_{g,i} = \\frac{x_{g,i}}{\\sum_{g'} x_{g',i}}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_{g,i}\)</span> is the raw count for gene <span class="math notranslate nohighlight">\(g\)</span> in sample <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<p><strong>Purpose</strong>: Remove technical variation due to sequencing depth.</p>
+</section>
+<section id="step-2-log-transformation">
+<h3>Step 2: Log Transformation<a class="headerlink" href="#step-2-log-transformation" title="Link to this heading"></a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}y_{g,i} = \\log_2(x'_{g,i} + 1)\end{split}\]</div>
+<p><strong>Purpose</strong>: Stabilize variance and reduce the influence of highly expressed genes.</p>
+</section>
+<section id="step-3-rank-based-z-score-transform">
+<h3>Step 3: Rank-Based Z-Score Transform<a class="headerlink" href="#step-3-rank-based-z-score-transform" title="Link to this heading"></a></h3>
+<p>For each sample <span class="math notranslate nohighlight">\(i\)</span>:</p>
+<ol class="arabic">
+<li><p><strong>Rank genes</strong>: Assign ranks <span class="math notranslate nohighlight">\(r_{g,i} \\in [1, G]\)</span> to genes based on <span class="math notranslate nohighlight">\(y_{g,i}\)</span></p></li>
+<li><p><strong>Handle ties</strong>: Use average rank for tied values</p></li>
+<li><p><strong>Convert to percentiles</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}p_{g,i} = \\frac{r_{g,i}}{G + 1}\end{split}\]</div>
+</li>
+<li><p><strong>Apply inverse normal CDF</strong> (probit transform):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}z_{g,i} = \\Phi^{-1}(p_{g,i}) = \\sqrt{2} \\cdot \\text{erf}^{-1}(2p_{g,i} - 1)\end{split}\]</div>
+</li>
+</ol>
+<p><strong>Purpose</strong>: Ranking is valuable because there is a lot of batch-to-bath variability in scRNA-seq data. Ranking converts all gene expression to relative ordering instead of absolute expression, helping ameliorate batch effects.Rank-based methods are more stable across experiments</p>
+</section>
+</section>
+<section id="basis-construction">
+<h2>Basis Construction<a class="headerlink" href="#basis-construction" title="Link to this heading"></a></h2>
+<section id="creating-the-reference-basis">
+<h3>Creating the Reference Basis<a class="headerlink" href="#creating-the-reference-basis" title="Link to this heading"></a></h3>
+<p>Given annotated reference data, the basis is constructed by:</p>
+<ol class="arabic">
+<li><p><strong>Group cells by type</strong>: Collect all cells <span class="math notranslate nohighlight">\(\\{\\mathbf{s}_1, \\mathbf{s}_2, \\ldots, \\mathbf{s}_N\\}\)</span> for each cell type</p></li>
+<li><p><strong>Process each cell</strong>: Apply the full processing pipeline to cells individually, avoiding cross-sample operations</p></li>
+<li><p><strong>Average within type</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\mathbf{b}_{ct} = \\frac{1}{N_{ct}} \\sum_{i \\in ct} \\mathbf{s}_i\end{split}\]</div>
+</li>
+<li><p><strong>Assemble basis</strong>: <span class="math notranslate nohighlight">\(\\xi = [\\mathbf{b}_1, \\mathbf{b}_2, \\ldots, \\mathbf{b}_C]\)</span></p></li>
+</ol>
+<p><strong>Result</strong>: Each column of <span class="math notranslate nohighlight">\(\\xi\)</span> represents the average processed expression profile for one cell type.</p>
+</section>
+<section id="basis-properties">
+<h3>Basis Properties<a class="headerlink" href="#basis-properties" title="Link to this heading"></a></h3>
+<p><strong>Non-orthogonality</strong>: The gene expression profiles of cell types are correlated, so <span class="math notranslate nohighlight">\(\\xi^T \\xi \\neq I\)</span>. The basis captures these relationships.</p>
+<p><strong>Similarity Matrix</strong>: <span class="math notranslate nohighlight">\(A = \\xi^T \\xi / G\)</span> encodes cell type similarities:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A_{ii} \\approx 1\)</span>: Self-similarity</p></li>
+<li><p><span class="math notranslate nohighlight">\(A_{ij}\)</span>: Similarity between types <span class="math notranslate nohighlight">\(i\)</span> and <span class="math notranslate nohighlight">\(j\)</span></p></li>
+</ul>
+</section>
+</section>
+<section id="scoring-projection">
+<h2>Scoring (Projection)<a class="headerlink" href="#scoring-projection" title="Link to this heading"></a></h2>
+<section id="non-orthogonal-projection">
+<h3>Non-Orthogonal Projection<a class="headerlink" href="#non-orthogonal-projection" title="Link to this heading"></a></h3>
+<p>To score a sample <span class="math notranslate nohighlight">\(\\mathbf{s}\)</span> against basis <span class="math notranslate nohighlight">\(\\xi\)</span>, we solve:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\mathbf{a}^* = (\\xi^T \\xi)^{-1} \\xi^T \\mathbf{s}\end{split}\]</div>
+<p>This gives the coefficients <span class="math notranslate nohighlight">\(\\mathbf{a}^*\)</span> that best reconstruct <span class="math notranslate nohighlight">\(\\mathbf{s}\)</span> as a linear combination of basis vectors.</p>
+</section>
+<section id="interpretation-of-scores">
+<h3>Interpretation of Scores<a class="headerlink" href="#interpretation-of-scores" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Higher score</strong> → better match to that cell type</p></li>
+<li><p><strong>Scores can be negative</strong>: Sample anti-correlates with that type</p></li>
+<li><p><strong>Scores can be very low</strong>: Because of dropout, scores for single cells may be low across all types. Try using pseudo-bulk (i.e. average across populations) for more robust scores.</p></li>
+<li><p><strong>Use endogenous samples as controls</strong>: To interpret scores, compare to known endogenous samples processed the same way whenever possible. This gives a baseline for expected score ranges given dropout, technical variability, and data quality.</p></li>
+</ul>
+</section>
+</section>
+<section id="predictivity-matrix">
+<h2>Predictivity Matrix<a class="headerlink" href="#predictivity-matrix" title="Link to this heading"></a></h2>
+<p>The matrix <span class="math notranslate nohighlight">\(\\eta\)</span> is called the <strong>predictivity matrix</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\eta = (\\xi^T \\xi)^{-1} \\xi^T / G\end{split}\]</div>
+<p>Each entry <span class="math notranslate nohighlight">\(\\eta_{ct,g}\)</span> represents:</p>
+<p><strong>How much does expression of gene</strong> <span class="math notranslate nohighlight">\(g\)</span> <strong>contribute to the score for cell type</strong> <span class="math notranslate nohighlight">\(ct\)</span>?</p>
+<section id="gene-contributions">
+<h3>Gene Contributions<a class="headerlink" href="#gene-contributions" title="Link to this heading"></a></h3>
+<p>For a sample <span class="math notranslate nohighlight">\(\\mathbf{s}\)</span> and cell type <span class="math notranslate nohighlight">\(ct\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}a_{ct} = \\sum_g \\eta_{ct,g} \\cdot s_g\end{split}\]</div>
+<p>The <strong>contribution of gene</strong> <span class="math notranslate nohighlight">\(g\)</span> to type <span class="math notranslate nohighlight">\(ct\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}c_{g,ct} = \\eta_{ct,g} \\cdot s_g\end{split}\]</div>
+<p><strong>Interpretation</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(c_{g,ct} &gt; 0\)</span>: High expression of gene <span class="math notranslate nohighlight">\(g\)</span> increases score for type <span class="math notranslate nohighlight">\(ct\)</span>. Low expression of gene <span class="math notranslate nohighlight">\(g\)</span> decreases score.</p></li>
+<li><p><span class="math notranslate nohighlight">\(c_{g,ct} &lt; 0\)</span>: High expression of gene <span class="math notranslate nohighlight">\(g\)</span> decreases score for type <span class="math notranslate nohighlight">\(ct\)</span>. Low expression of gene <span class="math notranslate nohighlight">\(g\)</span> increases score.</p></li>
+<li><p><span class="math notranslate nohighlight">\(|c_{g,ct}|\)</span> large: Gene <span class="math notranslate nohighlight">\(g\)</span> strongly influences assignment</p></li>
+</ul>
+<p><strong>Use Case</strong>: Identify which genes drive cell type assignments, validate with known markers.</p>
+</section>
+</section>
+<section id="performance-metrics">
+<h2>Performance Metrics<a class="headerlink" href="#performance-metrics" title="Link to this heading"></a></h2>
+<section id="top-1-accuracy">
+<h3>Top-1 Accuracy<a class="headerlink" href="#top-1-accuracy" title="Link to this heading"></a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\text{Acc}_1 = \\frac{\\#\\{\\text{argmax}(\\mathbf{a}) = \\text{true type}\\}}{N}\end{split}\]</div>
+<p>The fraction of cells assigned to the correct type.</p>
+</section>
+<section id="top-3-accuracy">
+<h3>Top-3 Accuracy<a class="headerlink" href="#top-3-accuracy" title="Link to this heading"></a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\text{Acc}_3 = \\frac{\\#\\{\\text{true type} \\in \\text{top 3 of } \\mathbf{a}\\}}{N}\end{split}\]</div>
+<p>The fraction where true type is in top 3 predictions.</p>
+</section>
+<section id="f1-score">
+<h3>F1 Score<a class="headerlink" href="#f1-score" title="Link to this heading"></a></h3>
+<p>Harmonic mean of precision and recall:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}F_1 = 2 \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}}\end{split}\]</div>
+<p>Computed per cell type and aggregated (macro or weighted average).</p>
+</section>
+<section id="unspecified-rate">
+<h3>Unspecified Rate<a class="headerlink" href="#unspecified-rate" title="Link to this heading"></a></h3>
+<p>Fraction of predictions with low confidence:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\text{Unspec} = \\frac{\\#\\{\\max(\\mathbf{a}) &lt; \\tau\\}}{N}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\\tau\)</span> is the specification threshold (default: 0.1).</p>
+</section>
+</section>
+<section id="feature-selection">
+<h2>Feature Selection<a class="headerlink" href="#feature-selection" title="Link to this heading"></a></h2>
+<section id="anova-based-selection">
+<h3>ANOVA-Based Selection<a class="headerlink" href="#anova-based-selection" title="Link to this heading"></a></h3>
+<p>scTOP can select informative genes using one-way ANOVA:</p>
+<ol class="arabic">
+<li><p><strong>Compute F-statistic</strong> for each gene:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}F_g = \\frac{\\text{MS}_{\\text{between}}}{\\text{MS}_{\\text{within}}}\end{split}\]</div>
+<p>where MS = mean square.</p>
+</li>
+<li><p><strong>Select top genes</strong>: Keep top <span class="math notranslate nohighlight">\(k\)</span> genes or top percentile by F-score.</p></li>
+<li><p><strong>Standardize basis</strong>: Optionally standardize selected features to unit norm.</p></li>
+</ol>
+<p><strong>Disclaimer</strong>:
+May discard important and relevant genes. May be misleading in defining what distinct cell types are.</p>
+</section>
+</section>
+<section id="cross-validation">
+<h2>Cross-Validation<a class="headerlink" href="#cross-validation" title="Link to this heading"></a></h2>
+<p>To robustly evaluate basis quality, scTOP supports k-fold cross-validation:</p>
+<ol class="arabic">
+<li><p><strong>Split data</strong> into <span class="math notranslate nohighlight">\(k\)</span> folds</p></li>
+<li><p><strong>For each fold</strong>:</p>
+<ul class="simple">
+<li><p>Train basis on <span class="math notranslate nohighlight">\(k-1\)</span> folds</p></li>
+<li><p>Test on held-out fold</p></li>
+<li><p>Compute metrics</p></li>
+</ul>
+</li>
+<li><p><strong>Average metrics</strong> across folds:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\\mu_{\\text{metric}} = \\frac{1}{k} \\sum_{i=1}^k \\text{metric}_i\end{split}\]</div>
+</li>
+<li><p><strong>Create final basis</strong> on all data</p></li>
+</ol>
+<p><strong>Advantage</strong>: More reliable performance estimate than single train-test split.</p>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<section id="for-optimal-results">
+<h3>For Optimal Results<a class="headerlink" href="#for-optimal-results" title="Link to this heading"></a></h3>
+<p>1. <strong>Use high-quality reference data</strong>: The entire method relies on the idea that each cell type is an attractor basin. Although it can distinguish highly-correlated cell types very well, it is very important to carefully curate a reference basis. The quality of scTOP’s output depends heavily on the quality of the reference basis.
+* Use sufficient cells per type (at least 100, preferably much more)
+* Ensure accurate and consistent annotations (make sure there are no duplicates or highly-similar types, e.g. “T cell CD4+” and “T cell”)</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Common gene space</strong>: Ensure query and reference share many genes</p></li>
+<li><p><strong>Consistent processing</strong>: Do not pre-normalize or log-transform; scTOP handles this</p></li>
+<li><p><strong>Validate basis</strong>: Check accuracy, confusion matrix, and F1 scores before use. It’s good to iteratively create a basis by merging similar cell types and dropping suspicious ones.</p></li>
+</ol>
+</section>
+<section id="for-interpretation">
+<h3>For Interpretation<a class="headerlink" href="#for-interpretation" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Examine contributions</strong>: Use gene contributions to validate and understand assignments</p></li>
+<li><p><strong>Compare to markers</strong>: Check if known markers have high contributions</p></li>
+<li><p><strong>Visualize cell trajectories</strong>: Plot scores in 2D or 3D to explore differentiation paths. scTOP is not just for annotating cells; it provides a set of cell fate coordinates to study the trajectories of differentiation. This is the most powerful use of scTOP.</p></li>
+<li><p><strong>Check confusion matrix</strong>: Understand which types are commonly confused</p></li>
+</ol>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Kanter, I., &amp; Sompolinsky, H. (1987). Associative recall of memory without errors. <em>Physical Review A</em>, 35(1), 380.</p></li>
+<li><p>Yampolskaya, Maria, et al. “scTOP: physics-inspired order parameters for cellular identification and visualization.” Development 150.21 (2023): dev201873.</p></li>
+<li><p>Yampolskaya, Maria, and Pankaj Mehta. “Hopfield Networks as Models of Emergent Function in Biology.” arXiv preprint arXiv:2506.13076 (2025).</p></li>
+<li><p>Lang, A. H., Li, H., Collins, J. J., &amp; Mehta, P. (2014). <a class="reference external" href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003734">Epigenetic Landscapes Explain Partially Reprogrammed Cells and Identify Key Reprogramming Genes</a>. <em>PLoS Computational Biology</em>, 10(8), e1003734.</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="autoapi/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Emergent Behaviors in Biology Lab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

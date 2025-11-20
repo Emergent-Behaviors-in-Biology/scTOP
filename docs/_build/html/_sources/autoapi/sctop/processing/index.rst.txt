@@ -1,0 +1,34 @@
+sctop.processing
+================
+
+.. py:module:: sctop.processing
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sctop.processing.process
+   sctop.processing.score
+   sctop.processing.rank_zscore_fast
+
+
+Module Contents
+---------------
+
+.. py:function:: process(df_in: Union[pandas.DataFrame, numpy.ndarray, scipy.sparse.spmatrix], average: bool = False, chunk_size: Optional[int] = None) -> pandas.DataFrame
+
+   Process scRNA-seq data with optional chunking.
+
+
+.. py:function:: score(basis: pandas.DataFrame, sample: pandas.DataFrame, full_output: bool = False, chunk_size: Optional[int] = None) -> Union[pandas.DataFrame, List]
+
+   Project sample onto basis with optional chunking.
+
+
+.. py:function:: rank_zscore_fast(arr: numpy.ndarray) -> numpy.ndarray
+
+   Rank-based normal scores transformation.
+
+
