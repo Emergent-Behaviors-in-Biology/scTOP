@@ -1,5 +1,10 @@
-[![Documentation Status](https://readthedocs.org/projects/sctop/badge/?version=latest)](https://sctop.readthedocs.io/en/latest/?badge=latest)
-[![PyPI version](https://badge.fury.io/py/sctop.svg)](https://badge.fury.io/py/sctop)
+.. image:: https://readthedocs.org/projects/sctop/badge/?version=latest
+   :target: https://sctop.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://badge.fury.io/py/sctop.svg
+   :target: https://badge.fury.io/py/sctop
+   :alt: PyPI version
 
 =========================================================================================
 scTOP: Single-cell Type Order Parameters
