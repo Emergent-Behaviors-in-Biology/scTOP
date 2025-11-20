@@ -5,12 +5,12 @@ with open("README.rst", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="scTOP",
-    version="1.0.0",
-    author="Maria Yampolskaya",
-    author_email="mariay@bu.edu",
-    description="A package for identifying cell phenotype from single-cell RNA-sequencing data.",
+    version="2.0.0",
+    author="Maria Yampolskaya, Huan Souza",
+    author_email="mariay@bu.edu, hsouza@bu.edu",
+    description="A package for analyzing cell type using single-cell RNA-sequencing data.",
     long_description=long_description,
-    long_description_content_type="text/markdown",
+    long_description_content_type="text/x-rst",
     url="https://github.com/Emergent-Behaviors-in-Biology/scTOP",
     project_urls={
         "Bug Tracker": "https://github.com/Emergent-Behaviors-in-Biology/scTOP/issues",
@@ -18,16 +18,23 @@ setuptools.setup(
     },
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: GNU General Public License (GPL)",
         "Operating System :: OS Independent",
     ],
     packages=["sctop"],
-    python_requires=">=3.6",
+    license="GPL-3.0-or-later", 
+    python_requires=">=3.8",
     include_package_data=True,
     install_requires=[
         "numpy",
         "pandas",
         "scipy",
-        "tables"
+        "tables",
+        "anndata",
+        "scikit-learn",
+        "matplotlib",
+        "seaborn",
+        "tqdm",
+        "numba",
+        "requests"
     ]
 )
