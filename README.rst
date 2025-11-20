@@ -1,3 +1,6 @@
+[![Documentation Status](https://readthedocs.org/projects/sctop/badge/?version=latest)](https://sctop.readthedocs.io/en/latest/?badge=latest)
+[![PyPI version](https://badge.fury.io/py/sctop.svg)](https://badge.fury.io/py/sctop)
+
 =========================================================================================
 scTOP: Single-cell Type Order Parameters
 =========================================================================================
