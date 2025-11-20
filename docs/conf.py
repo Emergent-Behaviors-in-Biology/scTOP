@@ -45,8 +45,26 @@ napoleon_type_aliases = None
 napoleon_attr_annotations = True
 
 # HTML theme
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'furo'
 html_static_path = []
+
+# Furo theme options
+html_theme_options = {
+    "light_css_variables": {
+        "color-brand-primary": "#2962ff",
+        "color-brand-content": "#2962ff",
+    },
+    "dark_css_variables": {
+        "color-brand-primary": "#448aff",
+        "color-brand-content": "#448aff",
+    },
+    "sidebar_hide_name": False,
+    "navigation_with_keys": True,
+    "top_of_page_button": "edit",
+    "source_repository": "https://github.com/Emergent-Behaviors-in-Biology/scTOP",
+    "source_branch": "main",
+    "source_directory": "docs/",
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
