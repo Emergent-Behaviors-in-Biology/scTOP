@@ -4,10 +4,6 @@ Tutorials
 
 This page contains detailed tutorials for common scTOP workflows.
 
-.. contents:: Table of Contents
-   :local:
-   :depth: 2
-
 Tutorial 1: Basic Cell Type Identification
 ===========================================
 
