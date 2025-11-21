@@ -12,12 +12,12 @@ scTOP (Single-cell Type Order Parameters) identifies cell phenotypes by projecti
 Theoretical Background
 ======================
 
-The approach is based on the work by Lang et al. (2014) in `Epigenetic Landscapes Explain Partially Reprogrammed Cells and Identify Key Reprogramming Genes <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003734>`_.
+This method is described in detail in `scTOP: physics-inspired order parameters for cellular identification and visualization <https://doi.org/10.1242/dev.201873>`_ by Maria Yampolskaya, Michael J. Herriges, Laertis Ikonomou, Darrell Kotton, and Pankaj Mehta.
 
 Key Concepts
 ------------
 
-**Order Parameters**: In physics, order parameters are a macroscopic variable describing the phase of a system. For cell types, Hopfield-inspired order parameters measure cellular identity.
+**Cell fate coordinates**: In physics, order parameters are a macroscopic variable describing the phase of a system. For cell types, Hopfield-inspired order parameters measure cellular identity, and can be used to define the coordinates of cell fate space.
 
 **Cell Type as Attractor State**: This approach is inspired by the Waddington landscape and treating cell types as attractors in a Hopfield network. Each cell type corresponds to a stable attractor in gene expression space.
 
