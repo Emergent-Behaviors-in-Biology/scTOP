@@ -4,7 +4,7 @@ Single-cell Type Order Parameters: identifying cell phenotype from gene expressi
 
 scTOP is a Python package for identifying cell phenotypes from single-cell RNA-sequencing data by projecting samples onto reference cell type bases. The package uses Order Parameters theory to find projections onto known cell phenotypes.
 
-The theoretical background for this project can be found in `Epigenetic Landscapes Explain Partially Reprogrammed Cells and Identify Key Reprogramming Genes <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003734>`_ by Alex H. Lang, Hu Li, James J. Collins, and Pankaj Mehta.
+The paper explaining the theory and mathematical details of this model is `scTOP: physics-inspired order parameters for cellular identification and visualization <https://doi.org/10.1242/dev.201873>`_ by Maria Yampolskaya, Michael J. Herriges, Laertis Ikonomou, Darrell Kotton, and Pankaj Mehta.
 
 .. toctree::
    :maxdepth: 2
