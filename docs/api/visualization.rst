@@ -4,7 +4,7 @@ Visualization
 
 Functions for visualizing cell type scores, gene expression, and analysis results.
 
-plot_highest
+bar_plot
 ============
 
 .. autofunction:: sctop.plot_highest
@@ -51,7 +51,7 @@ plot_highest
 * Scores > 1 indicate an issue with normalization
 * Useful for quick sample interpretation
 
-plot_expression_distribution
+box_plot
 =============================
 
 .. autofunction:: sctop.plot_expression_distribution
