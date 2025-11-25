@@ -1,0 +1,81 @@
+Metadata-Version: 2.4
+Name: scTOP
+Version: 2.0.3
+Summary: A package for analyzing cell type using single-cell RNA-sequencing data.
+Home-page: https://github.com/Emergent-Behaviors-in-Biology/scTOP
+Author: Maria Yampolskaya, Huan Souza
+Author-email: mariay@bu.edu, hsouza@bu.edu
+License: GPL-3.0-or-later
+Project-URL: Bug Tracker, https://github.com/Emergent-Behaviors-in-Biology/scTOP/issues
+Project-URL: Docs, https://sctop.readthedocs.io/
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: tables
+Requires-Dist: anndata
+Requires-Dist: scikit-learn
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: tqdm
+Requires-Dist: numba
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+.. image:: https://readthedocs.org/projects/sctop/badge/?version=latest
+   :target: https://sctop.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://badge.fury.io/py/sctop.svg
+   :target: https://badge.fury.io/py/sctop
+   :alt: PyPI version
+
+=========================================================================================
+scTOP: Single-cell Type Order Parameters
+=========================================================================================
+
+A Python package for analyzing cell type using single-cell RNA-sequencing data. See our paper for more details: `Development <https://doi.org/10.1242/dev.201873>`_.
+
+`Documentation available via Read the Docs <https://sctop.readthedocs.io/>`_ 
+
+Please report bugs or request new features in the Github "Issues" tab. You can also contact Maria or Huan directly at ``mariay@bu.edu`` and ``hsouza@bu.edu``.
+
+Installation
+=============
+
+To install using pip: ``pip install sctop``
+To install from github: clone or download this repo and import the module from the ``sctop`` directory.
+
+Dependencies
+-------------
+* NumPy
+* Pandas
+* SciPy
+* scikit-learn
+* Anndata
+* tqdm
+* numba
+* matplotlib
+* seaborn
+* tables
+* requests
+
+Sources for reference databases
+=================================
+* `Mouse Cell Atlas <http://bis.zju.edu.cn/MCA/>`_
+* `Herriges et al. <https://doi.org/10.1101/2022.07.26.501591>`

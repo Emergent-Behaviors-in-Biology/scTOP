@@ -35,10 +35,10 @@ def process(
         arr = arr_in.astype(np.float32, copy=False)
         z = _process_array(arr, average=False)
         return pd.DataFrame(z, index=genes, columns=cols)
-    
+
     pieces = []
     starts = list(range(0, n_samples, chunk_size))
-    
+
     for start in starts:
         end = min(start + chunk_size, n_samples)
         arr_chunk = arr_in[:, start:end].astype(np.float32, copy=False)
@@ -71,7 +71,7 @@ def score(
     eta = (X / G).astype(np.float32)
 
     n_samples = sample.shape[1]
-    
+
     if chunk_size is None or chunk_size >= n_samples:
         sample_sub = sample.loc[common].to_numpy(dtype=np.float32, copy=False)
         if sample_sub.ndim == 1:
@@ -80,25 +80,25 @@ def score(
     else:
         starts = list(range(0, n_samples, chunk_size))
         proj_pieces = []
-        
+
         for start in starts:
             end = min(start + chunk_size, n_samples)
             sample_chunk_df = sample.iloc[:, start:end]
             sample_chunk_sub = sample_chunk_df.loc[common].to_numpy(dtype=np.float32, copy=False)
-            
+
             if sample_chunk_sub.ndim == 1:
                 sample_chunk_sub = sample_chunk_sub.reshape(-1, 1)
-            
+
             a_chunk = eta @ sample_chunk_sub
             proj_pieces.append(a_chunk)
-            
+
         a = np.hstack(proj_pieces)
 
     proj_df = pd.DataFrame(a, index=basis.columns, columns=sample.columns)
     if full_output:
         return [proj_df, A, eta]
     return proj_df
-    
+
 @njit(parallel=True, fastmath=True)
 def _compute_ranks_parallel(arr: np.ndarray) -> np.ndarray:
     """Compute average ranks per column with tie-handling."""
@@ -133,7 +133,7 @@ def rank_zscore_fast(arr: np.ndarray) -> np.ndarray:
     G, S = arr.shape
     if G <= 1:
         return np.zeros_like(arr, dtype=np.float32)
-        
+
     ranks = _compute_ranks_parallel(arr)
     p = ranks.astype(np.float64) / (G + 1.0)
     z = np.sqrt(2.0) * special.erfinv(2.0 * p - 1.0)
@@ -142,7 +142,7 @@ def rank_zscore_fast(arr: np.ndarray) -> np.ndarray:
 def _process_array(arr: np.ndarray, average: bool = False) -> np.ndarray:
     """Core processing on numpy array."""
     arr = arr.astype(np.float32, copy=False)
-    
+
     col_sums = arr.sum(axis=0)
     zero_mask = col_sums == 0.0
     if zero_mask.any():

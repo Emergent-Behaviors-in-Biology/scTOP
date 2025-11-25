@@ -1,0 +1,11 @@
+numpy
+pandas
+scipy
+tables
+anndata
+scikit-learn
+matplotlib
+seaborn
+tqdm
+numba
+requests
