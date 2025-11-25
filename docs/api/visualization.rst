@@ -34,7 +34,7 @@ bar_plot
     
     # Plot top 15 matches
     fig, ax = plt.subplots(figsize=(10, 8))
-    top.plot_highest(
+    top.bar_plot(
         scores['sample_1'], 
         n=15, 
         ax=ax,
@@ -78,7 +78,7 @@ box_plot
     
     # Show expression of top 20 genes
     fig, ax = plt.subplots(figsize=(14, 6))
-    top.plot_expression_distribution(
+    top.box_plot(
         processed_sample,
         n=20,
         ax=ax,
